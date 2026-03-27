@@ -1,4 +1,6 @@
 .env
 qdrant_storage
 redis_storage
-__pycache__
+__pycache__/
+*.py[cod]
+.pytest_cache/
