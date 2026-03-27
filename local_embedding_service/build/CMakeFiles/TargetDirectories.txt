@@ -1,0 +1,9 @@
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/embedding_proto.dir
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/embedding_service_impl.dir
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/embedding_server.dir
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/edit_cache.dir
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/rebuild_cache.dir
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/list_install_components.dir
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/install.dir
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/install/local.dir
+/home/liyufeng/go_projects/OmniGateway/local_embedding_service/build/CMakeFiles/install/strip.dir

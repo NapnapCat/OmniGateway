@@ -1,0 +1,2 @@
+/usr/bin/ar qc libembedding_service_impl.a CMakeFiles/embedding_service_impl.dir/src/embedding_service_impl.cpp.o
+/usr/bin/ranlib libembedding_service_impl.a

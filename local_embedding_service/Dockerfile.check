@@ -1,0 +1,16 @@
+# Basic container for health-checking local_embedding_service via grpcurl
+# Use this like: docker build -f Dockerfile.check -t local-embedding-check .
+# Then run against a running service: docker run --rm local-embedding-check localhost 50051
+
+FROM alpine:3.19
+
+RUN apk add --no-cache bash curl ca-certificates \
+ && wget -qO /usr/local/bin/grpcurl https://github.com/fullstorydev/grpcurl/releases/download/v1.11.0/grpcurl_linux_x86_64 \
+ && chmod +x /usr/local/bin/grpcurl
+
+WORKDIR /app
+
+COPY check_embedding_service.sh /app/check_embedding_service.sh
+RUN chmod +x /app/check_embedding_service.sh
+
+ENTRYPOINT ["/app/check_embedding_service.sh"]
