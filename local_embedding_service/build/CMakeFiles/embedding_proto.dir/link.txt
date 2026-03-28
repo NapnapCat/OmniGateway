@@ -1,2 +1,0 @@
-/usr/bin/ar qc libembedding_proto.a CMakeFiles/embedding_proto.dir/generated/embedding.pb.cc.o CMakeFiles/embedding_proto.dir/generated/embedding.grpc.pb.cc.o
-/usr/bin/ranlib libembedding_proto.a

@@ -42,7 +42,7 @@ cmake --build . -j
 ## 3. 启动服务
 ```bash
 cd /home/liyufeng/go_projects/OmniGateway/local_embedding_service/build
-SERVE_PORT=50051 LOCAL_EMBED_DIMENSIONS=1536 LOCAL_EMBED_PROVIDER=local-mock LOCAL_EMBED_MODEL=local-mock-embedding ./embedding_server
+./embedding_server
 ```
 - 默认 `SERVE_PORT=50051`
 - 如果不设置 `LOCAL_EMBED_DIMENSIONS` 默认 1536

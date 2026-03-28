@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-fbf1d423923315332e0cfd81b0cdc31d generated/embedding.pb.cc
