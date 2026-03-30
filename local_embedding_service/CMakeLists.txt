@@ -30,27 +30,9 @@ endif()
 message(STATUS "Using grpc_cpp_plugin: ${GRPC_CPP_PLUGIN_EXECUTABLE}")
 
 find_package(Protobuf REQUIRED)
-
-find_path(GRPC_INCLUDE_DIR
-  NAMES grpcpp/grpcpp.h
-  HINTS /usr/include /usr/local/include
-)
-find_library(GRPCPP_LIBRARY
-  NAMES grpc++
-  HINTS /usr/lib /usr/lib/x86_64-linux-gnu /usr/local/lib
-)
-find_library(GRPC_LIBRARY
-  NAMES grpc
-  HINTS /usr/lib /usr/lib/x86_64-linux-gnu /usr/local/lib
-)
-
-if(NOT GRPCPP_LIBRARY OR NOT GRPC_LIBRARY)
-  message(FATAL_ERROR "gRPC libraries not found. Install libgrpc++-dev and libgrpc-dev")
-endif()
-
-if(NOT GRPC_INCLUDE_DIR)
-  message(FATAL_ERROR "gRPC headers not found. Install gRPC development headers")
-endif()
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GRPCXX REQUIRED IMPORTED_TARGET grpc++)
+pkg_check_modules(PROTOBUF_PKG REQUIRED IMPORTED_TARGET protobuf)
 
 set(PROTO_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/proto")
 set(PROTO_FILE "${PROTO_SRC_DIR}/embedding.proto")
@@ -100,13 +82,13 @@ target_include_directories(embedding_proto
   PUBLIC
     /usr/include
     ${GENERATED_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/generated
 )
 
 target_link_libraries(embedding_proto
   PUBLIC
-    ${Protobuf_LIBRARIES}
-    ${GRPCPP_LIBRARY}
-    ${GRPC_LIBRARY}
+    PkgConfig::PROTOBUF_PKG
+    PkgConfig::GRPCXX
 )
 
 add_library(embedding_service_impl
@@ -117,14 +99,14 @@ target_include_directories(embedding_service_impl
   PUBLIC
     include
     ${GENERATED_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/generated
     /usr/include
 )
 
 target_link_libraries(embedding_service_impl
   PUBLIC
     embedding_proto
-    ${GRPCPP_LIBRARY}
-    ${GRPC_LIBRARY}
+    PkgConfig::GRPCXX
 )
 
 add_executable(embedding_server
@@ -140,8 +122,7 @@ target_link_libraries(embedding_server
   PRIVATE
     embedding_service_impl
     embedding_proto
-    ${GRPCPP_LIBRARY}
-    ${GRPC_LIBRARY}
+    PkgConfig::GRPCXX
 )
 
 install(TARGETS embedding_server

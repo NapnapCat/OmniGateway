@@ -1,32 +1,31 @@
-# 使用预编译二进制文件
 FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 更换镜像源（可选，加快下载）
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources 2>/dev/null || \
     sed -i 's|http://deb.debian.org|http://mirrors.aliyun.com|g' /etc/apt/sources.list
 
-# 只安装运行时依赖（Debian包名）
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgrpc++-1 \
-    libprotobuf32 \
+    build-essential \
     ca-certificates \
-    libstdc++6 \
+    cmake \
+    libgrpc++-dev \
+    libprotobuf-dev \
+    pkg-config \
+    protobuf-compiler-grpc \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 直接复制本地编译好的二进制文件
-COPY build/embedding_server /app/embedding_server
+COPY local_embedding_service /app/local_embedding_service
 
-# 复制其他需要的文件
-COPY generated/ /app/generated/ 2>/dev/null || true
-COPY include/ /app/include/ 2>/dev/null || true
-
-RUN chmod +x /app/embedding_server && \
-    ldd /app/embedding_server  # 检查依赖是否满足
+RUN cmake -S /app/local_embedding_service -B /app/local_embedding_service/build \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_EXE_LINKER_FLAGS="-lgpr" \
+        -DUSE_PREGENERATED_PROTO=OFF \
+    && cmake --build /app/local_embedding_service/build --config Release -j"$(nproc)" \
+    && cp /app/local_embedding_service/build/embedding_server /usr/local/bin/embedding_server
 
 EXPOSE 50051
 
-CMD ["/app/embedding_server"]
+CMD ["/usr/local/bin/embedding_server"]
