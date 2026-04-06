@@ -1,25 +1,17 @@
 #include "embedding_service_impl.h"
 
 #include <cstdlib>
-#include <limits>
+#include <iostream>
+
+#include "mock_embedding_backend.h"
+
+#ifdef ENABLE_ONNX_BACKEND
+#include "onnx_embedding_backend.h"
+#endif
 
 namespace embedding_service {
 
-int EmbeddingServiceImpl::ReadIntEnv(const char* name, int default_value) {
-  const char* value = std::getenv(name);
-  if (value == nullptr || value[0] == '\0') {
-    return default_value;
-  }
-
-  try {
-    return std::stoi(value);
-  } catch (...) {
-    return default_value;
-  }
-}
-
-std::string EmbeddingServiceImpl::ReadStringEnv(const char* name,
-                                                const char* default_value) {
+static std::string ReadStringEnv(const char* name, const char* default_value) {
   const char* value = std::getenv(name);
   if (value == nullptr || value[0] == '\0') {
     return default_value;
@@ -27,50 +19,50 @@ std::string EmbeddingServiceImpl::ReadStringEnv(const char* name,
   return value;
 }
 
-uint32_t EmbeddingServiceImpl::HashText(const std::string& text, int counter) {
-  uint32_t hash = 2166136261u;
-  for (unsigned char ch : text) {
-    hash ^= static_cast<uint32_t>(ch);
-    hash *= 16777619u;
-  }
-  hash ^= static_cast<uint32_t>(counter);
-  hash *= 16777619u;
-  return hash;
-}
+EmbeddingServiceImpl::EmbeddingServiceImpl() {
+  std::string backend_type = ReadStringEnv("EMBEDDING_BACKEND", "mock");
 
-std::vector<float> EmbeddingServiceImpl::BuildVector(const std::string& text,
-                                                     int dimensions) {
-  std::vector<float> values;
-  values.reserve(dimensions);
-
-  int counter = 0;
-  while (static_cast<int>(values.size()) < dimensions) {
-    uint32_t state = HashText(text, counter++);
-    for (int i = 0; i < 8 && static_cast<int>(values.size()) < dimensions;
-         ++i) {
-      state = state * 1664525u + 1013904223u;
-      const float normalized =
-          static_cast<float>(state) /
-          static_cast<float>(std::numeric_limits<uint32_t>::max()) * 2.0f -
-          1.0f;
-      values.push_back(normalized);
-    }
+  if (backend_type == "onnx") {
+#ifdef ENABLE_ONNX_BACKEND
+    backend_ = std::make_unique<OnnxEmbeddingBackend>();
+    std::cout << "[Info] Using ONNX embedding backend" << std::endl;
+#else
+    std::cerr << "[Warning] ONNX backend requested but not compiled. Falling "
+                 "back to mock backend."
+              << std::endl;
+    backend_ = std::make_unique<MockEmbeddingBackend>();
+#endif
+  } else {
+    backend_ = std::make_unique<MockEmbeddingBackend>();
+    std::cout << "[Info] Using mock embedding backend" << std::endl;
   }
 
-  return values;
+  if (!backend_->Init(&init_error_)) {
+    std::cerr << "[Error] Failed to initialize embedding backend: "
+              << init_error_ << std::endl;
+  } else {
+    std::cout << "[Info] Embedding backend initialized: provider="
+              << backend_->GetProvider() << ", model=" << backend_->GetModel()
+              << ", dimensions=" << backend_->GetDimensions() << std::endl;
+  }
 }
-
-EmbeddingServiceImpl::EmbeddingServiceImpl()
-    : provider_(ReadStringEnv("LOCAL_EMBED_PROVIDER", "local-mock")),
-      model_(ReadStringEnv("LOCAL_EMBED_MODEL", "local-mock-embedding")),
-      dimensions_(ReadIntEnv("LOCAL_EMBED_DIMENSIONS",
-                             ReadIntEnv("EMBED_DIMENSIONS", 1536))) {}
 
 grpc::Status EmbeddingServiceImpl::GetEmbedding(
     grpc::ServerContext*, const embedding::EmbeddingRequest* request,
     embedding::EmbeddingResponse* response) {
-  const auto values = BuildVector(request->text(), dimensions_);
-  for (float value : values) {
+  if (!init_error_.empty()) {
+    response->set_error("Backend initialization failed: " + init_error_);
+    return grpc::Status::OK;
+  }
+
+  std::vector<float> embedding;
+  std::string error_msg;
+  if (!backend_->Encode(request->text(), &embedding, &error_msg)) {
+    response->set_error(error_msg);
+    return grpc::Status::OK;
+  }
+
+  for (float value : embedding) {
     response->add_embedding(value);
   }
   response->set_error("");
@@ -80,9 +72,9 @@ grpc::Status EmbeddingServiceImpl::GetEmbedding(
 grpc::Status EmbeddingServiceImpl::Info(
     grpc::ServerContext*, const google::protobuf::Empty*,
     embedding::InfoResponse* response) {
-  response->set_provider(provider_);
-  response->set_model(model_);
-  response->set_dimensions(dimensions_);
+  response->set_provider(backend_->GetProvider());
+  response->set_model(backend_->GetModel());
+  response->set_dimensions(backend_->GetDimensions());
   return grpc::Status::OK;
 }
 

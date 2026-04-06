@@ -41,6 +41,24 @@ file(MAKE_DIRECTORY ${GENERATED_DIR})
 
 option(USE_PREGENERATED_PROTO "Use pre-generated protobuf/gRPC code" ON)
 
+# Enable ONNX Runtime-based embedding backend (optional, default OFF to keep mock-only behavior)
+option(EMBEDDING_WITH_ONNXRUNTIME "Enable ONNX Runtime backend for embedding service" OFF)
+set(ONNXRUNTIME_INCLUDE_DIR "" CACHE PATH "ONNX Runtime include directory")
+set(ONNXRUNTIME_LIB_DIR "" CACHE PATH "ONNX Runtime library directory")
+set(ONNXRUNTIME_LIBS "" CACHE STRING "ONNX Runtime libraries to link against (e.g. onnxruntime onnxruntime_providers_cpu)")
+
+if(EMBEDDING_WITH_ONNXRUNTIME)
+  if(ONNXRUNTIME_INCLUDE_DIR)
+    include_directories(${ONNXRUNTIME_INCLUDE_DIR})
+  endif()
+  if(ONNXRUNTIME_LIB_DIR)
+    link_directories(${ONNXRUNTIME_LIB_DIR})
+  endif()
+  if(NOT ONNXRUNTIME_LIBS)
+    message(WARNING "EMBEDDING_WITH_ONNXRUNTIME is ON but ONNXRUNTIME_LIBS is empty; you must set ONNXRUNTIME_LIBS to the required libraries.")
+  endif()
+endif()
+
 if(USE_PREGENERATED_PROTO)
   message(STATUS "Using pre-generated protobuf/gRPC files from ${CMAKE_CURRENT_SOURCE_DIR}/generated")
   set(EMBEDDING_PB_CPP "${CMAKE_CURRENT_SOURCE_DIR}/generated/embedding.pb.cc")
@@ -93,7 +111,18 @@ target_link_libraries(embedding_proto
 
 add_library(embedding_service_impl
   src/embedding_service_impl.cpp
+  src/mock_embedding_backend.cpp
+  src/tokenizer.cpp
 )
+
+if(EMBEDDING_WITH_ONNXRUNTIME)
+  target_sources(embedding_service_impl PRIVATE src/onnx_embedding_backend.cpp)
+  target_compile_definitions(embedding_service_impl PRIVATE ENABLE_ONNX_BACKEND)
+  
+  if(ONNXRUNTIME_LIBS)
+    target_link_libraries(embedding_service_impl PUBLIC ${ONNXRUNTIME_LIBS})
+  endif()
+endif()
 
 target_include_directories(embedding_service_impl
   PUBLIC
