@@ -17,6 +17,9 @@ class MockEmbeddingBackend : public IEmbeddingBackend {
 
   bool Encode(const std::string& text, std::vector<float>* embedding,
               std::string* error_msg) override;
+  bool EncodeBatch(const std::vector<std::string>& texts,
+                   std::vector<std::vector<float>>* embeddings,
+                   std::string* error_msg) override;
 
   std::string GetProvider() const override { return provider_; }
   std::string GetModel() const override { return model_; }

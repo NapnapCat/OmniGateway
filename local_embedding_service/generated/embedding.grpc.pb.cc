@@ -2,127 +2,316 @@
 // If you make any local change, they will be lost.
 // source: embedding.proto
 
-#include "embedding.pb.h"
 #include "embedding.grpc.pb.h"
+#include "embedding.pb.h"
 
 #include <functional>
-#include <grpcpp/support/async_stream.h>
-#include <grpcpp/support/async_unary_call.h>
-#include <grpcpp/impl/channel_interface.h>
-#include <grpcpp/impl/client_unary_call.h>
-#include <grpcpp/support/client_callback.h>
-#include <grpcpp/support/message_allocator.h>
-#include <grpcpp/support/method_handler.h>
-#include <grpcpp/impl/rpc_service_method.h>
-#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/codegen/async_stream.h>
+#include <grpcpp/impl/codegen/async_unary_call.h>
+#include <grpcpp/impl/codegen/channel_interface.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_unary_call.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
+#include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
 #include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/server_context.h>
-#include <grpcpp/impl/service_type.h>
-#include <grpcpp/support/sync_stream.h>
+#include <grpcpp/impl/codegen/server_context.h>
+#include <grpcpp/impl/codegen/service_type.h>
+#include <grpcpp/impl/codegen/sync_stream.h>
 namespace embedding {
 
-static const char* EmbeddingService_method_names[] = {
-  "/embedding.EmbeddingService/GetEmbedding",
-  "/embedding.EmbeddingService/Info",
+static const char *EmbeddingService_method_names[] = {
+    "/embedding.EmbeddingService/GetEmbedding",
+    "/embedding.EmbeddingService/GetEmbeddings",
+    "/embedding.EmbeddingService/Info",
 };
 
-std::unique_ptr< EmbeddingService::Stub> EmbeddingService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
+std::unique_ptr<EmbeddingService::Stub> EmbeddingService::NewStub(
+    const std::shared_ptr<::grpc::ChannelInterface> &channel,
+    const ::grpc::StubOptions &options) {
   (void)options;
-  std::unique_ptr< EmbeddingService::Stub> stub(new EmbeddingService::Stub(channel, options));
+  std::unique_ptr<EmbeddingService::Stub> stub(
+      new EmbeddingService::Stub(channel));
   return stub;
 }
 
-EmbeddingService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-  : channel_(channel), rpcmethod_GetEmbedding_(EmbeddingService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Info_(EmbeddingService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  {}
+EmbeddingService::Stub::Stub(
+    const std::shared_ptr<::grpc::ChannelInterface> &channel)
+    : channel_(channel),
+      rpcmethod_GetEmbedding_(EmbeddingService_method_names[0],
+                              ::grpc::internal::RpcMethod::NORMAL_RPC, channel),
+      rpcmethod_GetEmbeddings_(EmbeddingService_method_names[1],
+                               ::grpc::internal::RpcMethod::NORMAL_RPC,
+                               channel),
+      rpcmethod_Info_(EmbeddingService_method_names[2],
+                      ::grpc::internal::RpcMethod::NORMAL_RPC, channel) {}
 
-::grpc::Status EmbeddingService::Stub::GetEmbedding(::grpc::ClientContext* context, const ::embedding::EmbeddingRequest& request, ::embedding::EmbeddingResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::embedding::EmbeddingRequest, ::embedding::EmbeddingResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetEmbedding_, context, request, response);
+::grpc::Status EmbeddingService::Stub::GetEmbedding(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingRequest &request,
+    ::embedding::EmbeddingResponse *response) {
+  return ::grpc::internal::BlockingUnaryCall(
+      channel_.get(), rpcmethod_GetEmbedding_, context, request, response);
 }
 
-void EmbeddingService::Stub::async::GetEmbedding(::grpc::ClientContext* context, const ::embedding::EmbeddingRequest* request, ::embedding::EmbeddingResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::embedding::EmbeddingRequest, ::embedding::EmbeddingResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetEmbedding_, context, request, response, std::move(f));
+void EmbeddingService::Stub::experimental_async::GetEmbedding(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingRequest *request,
+    ::embedding::EmbeddingResponse *response,
+    std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(
+      stub_->channel_.get(), stub_->rpcmethod_GetEmbedding_, context, request,
+      response, std::move(f));
 }
 
-void EmbeddingService::Stub::async::GetEmbedding(::grpc::ClientContext* context, const ::embedding::EmbeddingRequest* request, ::embedding::EmbeddingResponse* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetEmbedding_, context, request, response, reactor);
+void EmbeddingService::Stub::experimental_async::GetEmbedding(
+    ::grpc::ClientContext *context, const ::grpc::ByteBuffer *request,
+    ::embedding::EmbeddingResponse *response,
+    std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(
+      stub_->channel_.get(), stub_->rpcmethod_GetEmbedding_, context, request,
+      response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::embedding::EmbeddingResponse>* EmbeddingService::Stub::PrepareAsyncGetEmbeddingRaw(::grpc::ClientContext* context, const ::embedding::EmbeddingRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::embedding::EmbeddingResponse, ::embedding::EmbeddingRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetEmbedding_, context, request);
+void EmbeddingService::Stub::experimental_async::GetEmbedding(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingRequest *request,
+    ::embedding::EmbeddingResponse *response,
+    ::grpc::experimental::ClientUnaryReactor *reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(
+      stub_->channel_.get(), stub_->rpcmethod_GetEmbedding_, context, request,
+      response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::embedding::EmbeddingResponse>* EmbeddingService::Stub::AsyncGetEmbeddingRaw(::grpc::ClientContext* context, const ::embedding::EmbeddingRequest& request, ::grpc::CompletionQueue* cq) {
-  auto* result =
-    this->PrepareAsyncGetEmbeddingRaw(context, request, cq);
-  result->StartCall();
-  return result;
+void EmbeddingService::Stub::experimental_async::GetEmbedding(
+    ::grpc::ClientContext *context, const ::grpc::ByteBuffer *request,
+    ::embedding::EmbeddingResponse *response,
+    ::grpc::experimental::ClientUnaryReactor *reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(
+      stub_->channel_.get(), stub_->rpcmethod_GetEmbedding_, context, request,
+      response, reactor);
 }
 
-::grpc::Status EmbeddingService::Stub::Info(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::embedding::InfoResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::google::protobuf::Empty, ::embedding::InfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Info_, context, request, response);
+::grpc::ClientAsyncResponseReader<::embedding::EmbeddingResponse> *
+EmbeddingService::Stub::AsyncGetEmbeddingRaw(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingRequest &request, ::grpc::CompletionQueue *cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory<
+      ::embedding::EmbeddingResponse>::Create(channel_.get(), cq,
+                                              rpcmethod_GetEmbedding_, context,
+                                              request, true);
 }
 
-void EmbeddingService::Stub::async::Info(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::embedding::InfoResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::google::protobuf::Empty, ::embedding::InfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Info_, context, request, response, std::move(f));
+::grpc::ClientAsyncResponseReader<::embedding::EmbeddingResponse> *
+EmbeddingService::Stub::PrepareAsyncGetEmbeddingRaw(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingRequest &request, ::grpc::CompletionQueue *cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory<
+      ::embedding::EmbeddingResponse>::Create(channel_.get(), cq,
+                                              rpcmethod_GetEmbedding_, context,
+                                              request, false);
 }
 
-void EmbeddingService::Stub::async::Info(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::embedding::InfoResponse* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Info_, context, request, response, reactor);
+::grpc::Status EmbeddingService::Stub::GetEmbeddings(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingBatchRequest &request,
+    ::embedding::EmbeddingBatchResponse *response) {
+  return ::grpc::internal::BlockingUnaryCall(
+      channel_.get(), rpcmethod_GetEmbeddings_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::embedding::InfoResponse>* EmbeddingService::Stub::PrepareAsyncInfoRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::embedding::InfoResponse, ::google::protobuf::Empty, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Info_, context, request);
+void EmbeddingService::Stub::experimental_async::GetEmbeddings(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingBatchRequest *request,
+    ::embedding::EmbeddingBatchResponse *response,
+    std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(
+      stub_->channel_.get(), stub_->rpcmethod_GetEmbeddings_, context, request,
+      response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::embedding::InfoResponse>* EmbeddingService::Stub::AsyncInfoRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
-  auto* result =
-    this->PrepareAsyncInfoRaw(context, request, cq);
-  result->StartCall();
-  return result;
+void EmbeddingService::Stub::experimental_async::GetEmbeddings(
+    ::grpc::ClientContext *context, const ::grpc::ByteBuffer *request,
+    ::embedding::EmbeddingBatchResponse *response,
+    std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(
+      stub_->channel_.get(), stub_->rpcmethod_GetEmbeddings_, context, request,
+      response, std::move(f));
+}
+
+void EmbeddingService::Stub::experimental_async::GetEmbeddings(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingBatchRequest *request,
+    ::embedding::EmbeddingBatchResponse *response,
+    ::grpc::experimental::ClientUnaryReactor *reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(
+      stub_->channel_.get(), stub_->rpcmethod_GetEmbeddings_, context, request,
+      response, reactor);
+}
+
+void EmbeddingService::Stub::experimental_async::GetEmbeddings(
+    ::grpc::ClientContext *context, const ::grpc::ByteBuffer *request,
+    ::embedding::EmbeddingBatchResponse *response,
+    ::grpc::experimental::ClientUnaryReactor *reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(
+      stub_->channel_.get(), stub_->rpcmethod_GetEmbeddings_, context, request,
+      response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader<::embedding::EmbeddingBatchResponse> *
+EmbeddingService::Stub::AsyncGetEmbeddingsRaw(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingBatchRequest &request,
+    ::grpc::CompletionQueue *cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory<
+      ::embedding::EmbeddingBatchResponse>::Create(channel_.get(), cq,
+                                                   rpcmethod_GetEmbeddings_,
+                                                   context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader<::embedding::EmbeddingBatchResponse> *
+EmbeddingService::Stub::PrepareAsyncGetEmbeddingsRaw(
+    ::grpc::ClientContext *context,
+    const ::embedding::EmbeddingBatchRequest &request,
+    ::grpc::CompletionQueue *cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory<
+      ::embedding::EmbeddingBatchResponse>::Create(channel_.get(), cq,
+                                                   rpcmethod_GetEmbeddings_,
+                                                   context, request, false);
+}
+
+::grpc::Status
+EmbeddingService::Stub::Info(::grpc::ClientContext *context,
+                             const ::google::protobuf::Empty &request,
+                             ::embedding::InfoResponse *response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_Info_,
+                                             context, request, response);
+}
+
+void EmbeddingService::Stub::experimental_async::Info(
+    ::grpc::ClientContext *context, const ::google::protobuf::Empty *request,
+    ::embedding::InfoResponse *response,
+    std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(),
+                                           stub_->rpcmethod_Info_, context,
+                                           request, response, std::move(f));
+}
+
+void EmbeddingService::Stub::experimental_async::Info(
+    ::grpc::ClientContext *context, const ::grpc::ByteBuffer *request,
+    ::embedding::InfoResponse *response,
+    std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(),
+                                           stub_->rpcmethod_Info_, context,
+                                           request, response, std::move(f));
+}
+
+void EmbeddingService::Stub::experimental_async::Info(
+    ::grpc::ClientContext *context, const ::google::protobuf::Empty *request,
+    ::embedding::InfoResponse *response,
+    ::grpc::experimental::ClientUnaryReactor *reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(
+      stub_->channel_.get(), stub_->rpcmethod_Info_, context, request, response,
+      reactor);
+}
+
+void EmbeddingService::Stub::experimental_async::Info(
+    ::grpc::ClientContext *context, const ::grpc::ByteBuffer *request,
+    ::embedding::InfoResponse *response,
+    ::grpc::experimental::ClientUnaryReactor *reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(
+      stub_->channel_.get(), stub_->rpcmethod_Info_, context, request, response,
+      reactor);
+}
+
+::grpc::ClientAsyncResponseReader<::embedding::InfoResponse> *
+EmbeddingService::Stub::AsyncInfoRaw(::grpc::ClientContext *context,
+                                     const ::google::protobuf::Empty &request,
+                                     ::grpc::CompletionQueue *cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory<
+      ::embedding::InfoResponse>::Create(channel_.get(), cq, rpcmethod_Info_,
+                                         context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader<::embedding::InfoResponse> *
+EmbeddingService::Stub::PrepareAsyncInfoRaw(
+    ::grpc::ClientContext *context, const ::google::protobuf::Empty &request,
+    ::grpc::CompletionQueue *cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory<
+      ::embedding::InfoResponse>::Create(channel_.get(), cq, rpcmethod_Info_,
+                                         context, request, false);
 }
 
 EmbeddingService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      EmbeddingService_method_names[0],
-      ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< EmbeddingService::Service, ::embedding::EmbeddingRequest, ::embedding::EmbeddingResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-          [](EmbeddingService::Service* service,
-             ::grpc::ServerContext* ctx,
-             const ::embedding::EmbeddingRequest* req,
-             ::embedding::EmbeddingResponse* resp) {
-               return service->GetEmbedding(ctx, req, resp);
-             }, this)));
+      EmbeddingService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler<EmbeddingService::Service,
+                                             ::embedding::EmbeddingRequest,
+                                             ::embedding::EmbeddingResponse>(
+          [](EmbeddingService::Service *service,
+             ::grpc_impl::ServerContext *ctx,
+             const ::embedding::EmbeddingRequest *req,
+             ::embedding::EmbeddingResponse *resp) {
+            return service->GetEmbedding(ctx, req, resp);
+          },
+          this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      EmbeddingService_method_names[1],
-      ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< EmbeddingService::Service, ::google::protobuf::Empty, ::embedding::InfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-          [](EmbeddingService::Service* service,
-             ::grpc::ServerContext* ctx,
-             const ::google::protobuf::Empty* req,
-             ::embedding::InfoResponse* resp) {
-               return service->Info(ctx, req, resp);
-             }, this)));
+      EmbeddingService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler<
+          EmbeddingService::Service, ::embedding::EmbeddingBatchRequest,
+          ::embedding::EmbeddingBatchResponse>(
+          [](EmbeddingService::Service *service,
+             ::grpc_impl::ServerContext *ctx,
+             const ::embedding::EmbeddingBatchRequest *req,
+             ::embedding::EmbeddingBatchResponse *resp) {
+            return service->GetEmbeddings(ctx, req, resp);
+          },
+          this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      EmbeddingService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler<EmbeddingService::Service,
+                                             ::google::protobuf::Empty,
+                                             ::embedding::InfoResponse>(
+          [](EmbeddingService::Service *service,
+             ::grpc_impl::ServerContext *ctx,
+             const ::google::protobuf::Empty *req,
+             ::embedding::InfoResponse *resp) {
+            return service->Info(ctx, req, resp);
+          },
+          this)));
 }
 
-EmbeddingService::Service::~Service() {
-}
+EmbeddingService::Service::~Service() {}
 
-::grpc::Status EmbeddingService::Service::GetEmbedding(::grpc::ServerContext* context, const ::embedding::EmbeddingRequest* request, ::embedding::EmbeddingResponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
+::grpc::Status EmbeddingService::Service::GetEmbedding(
+    ::grpc::ServerContext *context,
+    const ::embedding::EmbeddingRequest *request,
+    ::embedding::EmbeddingResponse *response) {
+  (void)context;
+  (void)request;
+  (void)response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status EmbeddingService::Service::Info(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::embedding::InfoResponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
+::grpc::Status EmbeddingService::Service::GetEmbeddings(
+    ::grpc::ServerContext *context,
+    const ::embedding::EmbeddingBatchRequest *request,
+    ::embedding::EmbeddingBatchResponse *response) {
+  (void)context;
+  (void)request;
+  (void)response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
+::grpc::Status
+EmbeddingService::Service::Info(::grpc::ServerContext *context,
+                                const ::google::protobuf::Empty *request,
+                                ::embedding::InfoResponse *response) {
+  (void)context;
+  (void)request;
+  (void)response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
 
-}  // namespace embedding
-
+} // namespace embedding

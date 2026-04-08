@@ -14,6 +14,9 @@ class IEmbeddingBackend {
 
   virtual bool Encode(const std::string& text, std::vector<float>* embedding,
                       std::string* error_msg) = 0;
+  virtual bool EncodeBatch(const std::vector<std::string>& texts,
+                           std::vector<std::vector<float>>* embeddings,
+                           std::string* error_msg) = 0;
 
   virtual std::string GetProvider() const = 0;
   virtual std::string GetModel() const = 0;

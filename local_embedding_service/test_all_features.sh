@@ -271,6 +271,21 @@ main() {
       warn "GetEmbedding with empty text may be rejected by the backend"
     fi
 
+    BATCH_OUTPUT="$(grpcurl_call -d '{"texts":["hello world","test message",""]}' embedding.EmbeddingService/GetEmbeddings 2>&1)"
+    echo "$BATCH_OUTPUT"
+    if echo "$BATCH_OUTPUT" | grep -q '"items"'; then
+      test_result 0 "GetEmbeddings endpoint returns items"
+    else
+      test_result 1 "GetEmbeddings endpoint doesn't return items"
+    fi
+
+    EMBEDDING_FIELD_COUNT="$(echo "$BATCH_OUTPUT" | grep -c '"embedding"' || true)"
+    if [ "$EMBEDDING_FIELD_COUNT" -ge 2 ]; then
+      test_result 0 "GetEmbeddings returns multiple embedding results"
+    else
+      test_result 1 "GetEmbeddings returns insufficient embedding results"
+    fi
+
     echo ""
   else
     test_result 1 "Embedding service is running"

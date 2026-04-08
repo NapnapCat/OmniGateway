@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service EmbeddingService {
   rpc GetEmbedding(EmbeddingRequest) returns (EmbeddingResponse);
+  rpc GetEmbeddings(EmbeddingBatchRequest) returns (EmbeddingBatchResponse);
   rpc Info(google.protobuf.Empty) returns (InfoResponse);
 }
 
@@ -17,6 +18,20 @@ message EmbeddingRequest {
 
 message EmbeddingResponse {
   repeated float embedding = 1;
+  string error = 2;
+}
+
+message EmbeddingBatchRequest {
+  repeated string texts = 1;
+}
+
+message EmbeddingBatchItem {
+  repeated float embedding = 1;
+  string error = 2;
+}
+
+message EmbeddingBatchResponse {
+  repeated EmbeddingBatchItem items = 1;
   string error = 2;
 }
 

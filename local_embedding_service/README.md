@@ -126,6 +126,12 @@ bash test_all_features.sh
 bash check_embedding_service.sh
 ```
 
+### Issue #15 验收说明(2026-04-08)
+- ✅ gRPC 接口已支持批量请求：新增 `GetEmbeddings(EmbeddingBatchRequest) -> EmbeddingBatchResponse`
+- ✅ 批处理逻辑已实现：`IEmbeddingBackend` 新增 `EncodeBatch`，Mock/ONNX 后端均已接入
+- ✅ 内存复用优化：批量编码路径中使用 `reserve` 和复用中间容器，减少重复分配
+
+
 ### 文档
 - [USE_GUIDE.md](USE_GUIDE.md) - 完整使用指南（已更新 v4.5.0）
 - [ONNX_SETUP.md](ONNX_SETUP.md) - ONNX Runtime 安装配置

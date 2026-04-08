@@ -166,7 +166,13 @@ All notable changes to the Local Embedding Service project will be documented in
 
 ---
 
-## Version History
+## [v4.8.0] - 2026-04-30
+- ✅ gRPC 接口已支持批量请求：新增 `GetEmbeddings(EmbeddingBatchRequest) -> EmbeddingBatchResponse`
+- ✅ 批处理逻辑已实现：`IEmbeddingBackend` 新增 `EncodeBatch`，Mock/ONNX 后端均已接入
+- ✅ 内存复用优化：批量编码路径中使用 `reserve` 和复用中间容器，减少重复分配
 
+---
+## Version History
+- **v4.8.0** (2026-04-08) - 将 embedding 能力封装为 gRPC 服务。
 - **v4.5.0** (2026-04-05) - ONNX Runtime 集成，真实模型支持
 - **v4.0.0** (2026-03-30) - 初始版本，Mock 实现

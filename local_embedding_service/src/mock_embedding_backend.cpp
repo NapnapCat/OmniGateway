@@ -79,4 +79,16 @@ bool MockEmbeddingBackend::Encode(const std::string& text,
   return true;
 }
 
+bool MockEmbeddingBackend::EncodeBatch(
+    const std::vector<std::string>& texts,
+    std::vector<std::vector<float>>* embeddings, std::string* error_msg) {
+  (void)error_msg;
+  embeddings->clear();
+  embeddings->reserve(texts.size());
+  for (const auto& text : texts) {
+    embeddings->push_back(BuildVector(text, dimensions_));
+  }
+  return true;
+}
+
 }  // namespace embedding_service

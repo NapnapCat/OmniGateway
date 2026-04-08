@@ -69,6 +69,49 @@ grpc::Status EmbeddingServiceImpl::GetEmbedding(
   return grpc::Status::OK;
 }
 
+grpc::Status EmbeddingServiceImpl::GetEmbeddings(
+    grpc::ServerContext*, const embedding::EmbeddingBatchRequest* request,
+    embedding::EmbeddingBatchResponse* response) {
+  if (!init_error_.empty()) {
+    response->set_error("Backend initialization failed: " + init_error_);
+    return grpc::Status::OK;
+  }
+
+  const int text_count = request->texts_size();
+  if (text_count <= 0) {
+    response->set_error("texts must not be empty");
+    return grpc::Status::OK;
+  }
+
+  std::vector<std::string> texts;
+  texts.reserve(static_cast<size_t>(text_count));
+  for (const auto& text : request->texts()) {
+    texts.push_back(text);
+  }
+
+  std::vector<std::vector<float>> embeddings;
+  std::string error_msg;
+  if (!backend_->EncodeBatch(texts, &embeddings, &error_msg)) {
+    response->set_error(error_msg);
+    return grpc::Status::OK;
+  }
+
+  if (embeddings.size() != texts.size()) {
+    response->set_error("backend returned inconsistent batch size");
+    return grpc::Status::OK;
+  }
+
+  for (const auto& emb : embeddings) {
+    auto* item = response->add_items();
+    for (float value : emb) {
+      item->add_embedding(value);
+    }
+    item->set_error("");
+  }
+  response->set_error("");
+  return grpc::Status::OK;
+}
+
 grpc::Status EmbeddingServiceImpl::Info(
     grpc::ServerContext*, const google::protobuf::Empty*,
     embedding::InfoResponse* response) {

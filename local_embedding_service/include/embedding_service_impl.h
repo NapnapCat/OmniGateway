@@ -19,6 +19,9 @@ class EmbeddingServiceImpl final : public embedding::EmbeddingService::Service {
   grpc::Status GetEmbedding(grpc::ServerContext* context,
                             const embedding::EmbeddingRequest* request,
                             embedding::EmbeddingResponse* response) override;
+  grpc::Status GetEmbeddings(grpc::ServerContext* context,
+                             const embedding::EmbeddingBatchRequest* request,
+                             embedding::EmbeddingBatchResponse* response) override;
 
   grpc::Status Info(grpc::ServerContext* context,
                     const google::protobuf::Empty* request,

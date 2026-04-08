@@ -168,4 +168,26 @@ bool OnnxEmbeddingBackend::Encode(const std::string& text,
 #endif
 }
 
+bool OnnxEmbeddingBackend::EncodeBatch(
+    const std::vector<std::string>& texts,
+    std::vector<std::vector<float>>* embeddings, std::string* error_msg) {
+#ifndef ENABLE_ONNX_BACKEND
+  *error_msg = "ONNX backend not enabled";
+  return false;
+#else
+  embeddings->clear();
+  embeddings->reserve(texts.size());
+  std::vector<float> single_embedding;
+  for (const auto& text : texts) {
+    single_embedding.clear();
+    if (!Encode(text, &single_embedding, error_msg)) {
+      embeddings->clear();
+      return false;
+    }
+    embeddings->push_back(single_embedding);
+  }
+  return true;
+#endif
+}
+
 }  // namespace embedding_service
