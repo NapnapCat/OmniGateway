@@ -1,0 +1,37 @@
+name: Pytest Integration Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [labeled]
+
+jobs:
+  integration-test:
+    name: Run Integration Tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event.label.name == 'run-tests'
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Create .env from secret
+        run: echo "${{ secrets.CI_ENV_FILE }}" > .env
+
+      - name: Run integration tests
+        run: pytest integration_tests -v
