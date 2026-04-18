@@ -148,6 +148,27 @@ All notable changes to the Local Embedding Service project will be documented in
 
 ---
 
+## [v4.9.0] - 2026-04-18
+
+### Added - Issue #16 ONNX Runtime 编译部署与回退能力
+- ✅ 补充 ONNX Runtime 编译与部署验收内容
+- ✅ 新增 `test_onnx_fallback.sh`，验证 ONNX 请求但模型加载失败时的自动回退行为
+- ✅ `test_all_features.sh` 增加对 `test_onnx_fallback.sh` 存在性的检查
+
+### Changed
+- 🔄 `EmbeddingServiceImpl` 增强回退逻辑：当 `EMBEDDING_BACKEND=onnx` 且 ONNX 后端初始化失败时，自动切换到 `MockEmbeddingBackend`
+- 🔄 ONNX 初始化失败后服务继续可用，`Info` 与 embedding 接口可通过 Mock 后端正常响应
+
+### Documentation
+- ✅ 更新 `README.md` 的 Issue #16 验收说明
+- ✅ 更新 `USE_GUIDE.md` 与 `使用方法.md` 的 ONNX 编译、验证和 fallback 说明
+
+### Testing
+- ✅ 新增 ONNX fallback 自动化验证脚本
+- ✅ 保持现有功能回归测试通过（`test_all_features.sh`）
+
+---
+
 ## [v4.0.0] - 2026-03-30
 
 ### Added
