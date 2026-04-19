@@ -132,6 +132,17 @@ bash check_embedding_service.sh
 - ✅ 内存复用优化：批量编码路径中使用 `reserve` 和复用中间容器，减少重复分配
 
 
+### Issue #16 验收说明(2026-04-18)
+- ✅ 完成 ONNX Runtime 在 C++ 环境下的编译与部署流程
+- ✅ CMake 集成已支持开关式启用 ONNX（`EMBEDDING_WITH_ONNXRUNTIME`）
+- ✅ 已完成模型加载验证：加载成功时使用 ONNX 推理，失败时记录错误
+- ✅ 提供 fallback 方案：当请求 ONNX 但模型加载失败时自动回退到 Mock 后端并继续服务
+
+验收标准状态：
+- ✅ 成功加载模型并推理（ONNX 模式）
+- ✅ 提供 fallback 方案（ONNX 初始化失败自动降级到 Mock）
+
+
 ### 文档
 - [USE_GUIDE.md](USE_GUIDE.md) - 完整使用指南（已更新 v4.5.0）
 - [ONNX_SETUP.md](ONNX_SETUP.md) - ONNX Runtime 安装配置

@@ -188,6 +188,19 @@ bash check_embedding_service.sh
 bash check_embedding_service.sh localhost 50051
 ```
 
+### 4.3 ONNX 回退验证（Issue #16）
+当你设置 `EMBEDDING_BACKEND=onnx` 但没有提供有效模型路径时，服务应自动回退到 Mock 后端。
+
+```bash
+cd /your_path/go_projects/OmniGateway/local_embedding_service
+bash test_onnx_fallback.sh
+```
+
+预期结果：
+- 日志包含 ONNX 初始化失败信息；
+- 日志包含 `Falling back to mock embedding backend`；
+- `Info` 接口返回 `provider=local-mock`。
+
 ## 5. 手动验证（grpcurl）
 
 ### 5.1 检查服务信息（Info 接口）
@@ -402,7 +415,9 @@ grpcurl -plaintext -proto proto/embedding.proto \
 
 **问题 2: "LOCAL_EMBED_MODEL_PATH environment variable not set"**
 - 原因：未设置模型路径
-- 解决：`export LOCAL_EMBED_MODEL_PATH=/path/to/model.onnx`
+- 解决：
+  - 若希望 ONNX 推理：`export LOCAL_EMBED_MODEL_PATH=/path/to/model.onnx`
+  - 若当前仅需服务可用：可保留 `EMBEDDING_BACKEND=onnx`，服务会自动回退到 Mock 并继续提供能力
 
 **问题 3: "ONNX Runtime error: ..."**
 - 检查模型文件是否存在：`ls -lh $LOCAL_EMBED_MODEL_PATH`

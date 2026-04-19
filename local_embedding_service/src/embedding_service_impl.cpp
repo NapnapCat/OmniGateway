@@ -21,8 +21,9 @@ static std::string ReadStringEnv(const char* name, const char* default_value) {
 
 EmbeddingServiceImpl::EmbeddingServiceImpl() {
   std::string backend_type = ReadStringEnv("EMBEDDING_BACKEND", "mock");
+  const bool onnx_requested = (backend_type == "onnx");
 
-  if (backend_type == "onnx") {
+  if (onnx_requested) {
 #ifdef ENABLE_ONNX_BACKEND
     backend_ = std::make_unique<OnnxEmbeddingBackend>();
     std::cout << "[Info] Using ONNX embedding backend" << std::endl;
@@ -40,6 +41,21 @@ EmbeddingServiceImpl::EmbeddingServiceImpl() {
   if (!backend_->Init(&init_error_)) {
     std::cerr << "[Error] Failed to initialize embedding backend: "
               << init_error_ << std::endl;
+    if (onnx_requested) {
+      std::cerr << "[Warning] Falling back to mock embedding backend."
+                << std::endl;
+      backend_ = std::make_unique<MockEmbeddingBackend>();
+      std::string fallback_error;
+      if (!backend_->Init(&fallback_error)) {
+        init_error_ = "Fallback mock backend init failed: " + fallback_error;
+        std::cerr << "[Error] " << init_error_ << std::endl;
+      } else {
+        init_error_.clear();
+        std::cout << "[Info] Fallback backend initialized: provider="
+                  << backend_->GetProvider() << ", model=" << backend_->GetModel()
+                  << ", dimensions=" << backend_->GetDimensions() << std::endl;
+      }
+    }
   } else {
     std::cout << "[Info] Embedding backend initialized: provider="
               << backend_->GetProvider() << ", model=" << backend_->GetModel()

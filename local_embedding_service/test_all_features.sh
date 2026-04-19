@@ -305,6 +305,12 @@ main() {
     test_result 1 "check_embedding_service.sh not found"
   fi
 
+  if [ -x "$SCRIPT_DIR/test_onnx_fallback.sh" ] || [ -f "$SCRIPT_DIR/test_onnx_fallback.sh" ]; then
+    test_result 0 "test_onnx_fallback.sh exists"
+  else
+    test_result 1 "test_onnx_fallback.sh not found"
+  fi
+
   echo ""
   echo "=========================================="
   echo "测试总结 (Test Summary)"
