@@ -17,6 +17,7 @@ class ChatCompletionRequest(BaseModel):
         description="请求调用的模型名称；传 agent-core-v1 时会回退到服务端默认模型",
     )
     messages: List[ChatMessage] = Field(..., description="历史对话列表，最后一项为当前问题")
+    documents: Optional[List[str]] = Field(default=None, description="可选 RAG 文档列表")
     stream: Optional[bool] = Field(default=False, description="是否使用 SSE 流式输出")
     temperature: Optional[float] = Field(default=0.7, ge=0.0, le=2.0, description="大模型的发散度")
 

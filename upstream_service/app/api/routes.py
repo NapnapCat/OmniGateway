@@ -3,6 +3,7 @@ import uuid
 
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse, StreamingResponse
+from app.agent.graph import graph_app
 from app.api.schemas import ChatCompletionRequest
 from app.services.llm_service import llm_service
 
@@ -21,13 +22,19 @@ async def chat_completions(request: ChatCompletionRequest):
             },
         )
 
-    model_name = llm_service.resolve_model(request.model)
-    messages = llm_service.build_messages(request)
-    content = await llm_service.generate_reply(
-        messages=messages,
-        model=request.model,
-        temperature=request.temperature,
+    result = await graph_app.ainvoke(
+        {
+            "messages": [message.model_dump() for message in request.messages],
+            "documents": request.documents or [],
+            "context_text": "",
+            "next_step": "input_node",
+            "model": request.model,
+            "temperature": request.temperature,
+            "final_response": None,
+        }
     )
+    model_name = llm_service.resolve_model(request.model)
+    content = result.get("final_response") or ""
 
     payload = {
         "id": f"chatcmpl-{uuid.uuid4().hex}",
