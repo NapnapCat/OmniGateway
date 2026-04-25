@@ -50,6 +50,13 @@ class EmbeddingService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::embedding::EmbeddingBatchResponse>> PrepareAsyncGetEmbeddings(::grpc::ClientContext* context, const ::embedding::EmbeddingBatchRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::embedding::EmbeddingBatchResponse>>(PrepareAsyncGetEmbeddingsRaw(context, request, cq));
     }
+    virtual ::grpc::Status Rerank(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::embedding::RerankResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::embedding::RerankResponse>> AsyncRerank(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::embedding::RerankResponse>>(AsyncRerankRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::embedding::RerankResponse>> PrepareAsyncRerank(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::embedding::RerankResponse>>(PrepareAsyncRerankRaw(context, request, cq));
+    }
     virtual ::grpc::Status Info(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::embedding::InfoResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::embedding::InfoResponse>> AsyncInfo(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::embedding::InfoResponse>>(AsyncInfoRaw(context, request, cq));
@@ -84,6 +91,18 @@ class EmbeddingService final {
       #else
       virtual void GetEmbeddings(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::EmbeddingBatchResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
+      virtual void Rerank(::grpc::ClientContext* context, const ::embedding::RerankRequest* request, ::embedding::RerankResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Rerank(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::RerankResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void Rerank(::grpc::ClientContext* context, const ::embedding::RerankRequest* request, ::embedding::RerankResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void Rerank(::grpc::ClientContext* context, const ::embedding::RerankRequest* request, ::embedding::RerankResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void Rerank(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::RerankResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void Rerank(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::RerankResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
       virtual void Info(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::embedding::InfoResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Info(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::InfoResponse* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -109,6 +128,8 @@ class EmbeddingService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::embedding::EmbeddingResponse>* PrepareAsyncGetEmbeddingRaw(::grpc::ClientContext* context, const ::embedding::EmbeddingRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::embedding::EmbeddingBatchResponse>* AsyncGetEmbeddingsRaw(::grpc::ClientContext* context, const ::embedding::EmbeddingBatchRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::embedding::EmbeddingBatchResponse>* PrepareAsyncGetEmbeddingsRaw(::grpc::ClientContext* context, const ::embedding::EmbeddingBatchRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::embedding::RerankResponse>* AsyncRerankRaw(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::embedding::RerankResponse>* PrepareAsyncRerankRaw(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::embedding::InfoResponse>* AsyncInfoRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::embedding::InfoResponse>* PrepareAsyncInfoRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
   };
@@ -128,6 +149,13 @@ class EmbeddingService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::embedding::EmbeddingBatchResponse>> PrepareAsyncGetEmbeddings(::grpc::ClientContext* context, const ::embedding::EmbeddingBatchRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::embedding::EmbeddingBatchResponse>>(PrepareAsyncGetEmbeddingsRaw(context, request, cq));
+    }
+    ::grpc::Status Rerank(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::embedding::RerankResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::embedding::RerankResponse>> AsyncRerank(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::embedding::RerankResponse>>(AsyncRerankRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::embedding::RerankResponse>> PrepareAsyncRerank(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::embedding::RerankResponse>>(PrepareAsyncRerankRaw(context, request, cq));
     }
     ::grpc::Status Info(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::embedding::InfoResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::embedding::InfoResponse>> AsyncInfo(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
@@ -163,6 +191,18 @@ class EmbeddingService final {
       #else
       void GetEmbeddings(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::EmbeddingBatchResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
+      void Rerank(::grpc::ClientContext* context, const ::embedding::RerankRequest* request, ::embedding::RerankResponse* response, std::function<void(::grpc::Status)>) override;
+      void Rerank(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::RerankResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void Rerank(::grpc::ClientContext* context, const ::embedding::RerankRequest* request, ::embedding::RerankResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void Rerank(::grpc::ClientContext* context, const ::embedding::RerankRequest* request, ::embedding::RerankResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void Rerank(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::RerankResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void Rerank(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::RerankResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
       void Info(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::embedding::InfoResponse* response, std::function<void(::grpc::Status)>) override;
       void Info(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::embedding::InfoResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -190,10 +230,13 @@ class EmbeddingService final {
     ::grpc::ClientAsyncResponseReader< ::embedding::EmbeddingResponse>* PrepareAsyncGetEmbeddingRaw(::grpc::ClientContext* context, const ::embedding::EmbeddingRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::embedding::EmbeddingBatchResponse>* AsyncGetEmbeddingsRaw(::grpc::ClientContext* context, const ::embedding::EmbeddingBatchRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::embedding::EmbeddingBatchResponse>* PrepareAsyncGetEmbeddingsRaw(::grpc::ClientContext* context, const ::embedding::EmbeddingBatchRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::embedding::RerankResponse>* AsyncRerankRaw(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::embedding::RerankResponse>* PrepareAsyncRerankRaw(::grpc::ClientContext* context, const ::embedding::RerankRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::embedding::InfoResponse>* AsyncInfoRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::embedding::InfoResponse>* PrepareAsyncInfoRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_GetEmbedding_;
     const ::grpc::internal::RpcMethod rpcmethod_GetEmbeddings_;
+    const ::grpc::internal::RpcMethod rpcmethod_Rerank_;
     const ::grpc::internal::RpcMethod rpcmethod_Info_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -204,6 +247,7 @@ class EmbeddingService final {
     virtual ~Service();
     virtual ::grpc::Status GetEmbedding(::grpc::ServerContext* context, const ::embedding::EmbeddingRequest* request, ::embedding::EmbeddingResponse* response);
     virtual ::grpc::Status GetEmbeddings(::grpc::ServerContext* context, const ::embedding::EmbeddingBatchRequest* request, ::embedding::EmbeddingBatchResponse* response);
+    virtual ::grpc::Status Rerank(::grpc::ServerContext* context, const ::embedding::RerankRequest* request, ::embedding::RerankResponse* response);
     virtual ::grpc::Status Info(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::embedding::InfoResponse* response);
   };
   template <class BaseClass>
@@ -247,12 +291,32 @@ class EmbeddingService final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_Rerank : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_Rerank() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_Rerank() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Rerank(::grpc::ServerContext* /*context*/, const ::embedding::RerankRequest* /*request*/, ::embedding::RerankResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestRerank(::grpc::ServerContext* context, ::embedding::RerankRequest* request, ::grpc::ServerAsyncResponseWriter< ::embedding::RerankResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_Info : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Info() {
-      ::grpc::Service::MarkMethodAsync(2);
+      ::grpc::Service::MarkMethodAsync(3);
     }
     ~WithAsyncMethod_Info() override {
       BaseClassMustBeDerivedFromService(this);
@@ -263,10 +327,10 @@ class EmbeddingService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestInfo(::grpc::ServerContext* context, ::google::protobuf::Empty* request, ::grpc::ServerAsyncResponseWriter< ::embedding::InfoResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GetEmbedding<WithAsyncMethod_GetEmbeddings<WithAsyncMethod_Info<Service > > > AsyncService;
+  typedef WithAsyncMethod_GetEmbedding<WithAsyncMethod_GetEmbeddings<WithAsyncMethod_Rerank<WithAsyncMethod_Info<Service > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_GetEmbedding : public BaseClass {
    private:
@@ -362,6 +426,53 @@ class EmbeddingService final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithCallbackMethod_Rerank : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_Rerank() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(2,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::embedding::RerankRequest, ::embedding::RerankResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::embedding::RerankRequest* request, ::embedding::RerankResponse* response) { return this->Rerank(context, request, response); }));}
+    void SetMessageAllocatorFor_Rerank(
+        ::grpc::experimental::MessageAllocator< ::embedding::RerankRequest, ::embedding::RerankResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::embedding::RerankRequest, ::embedding::RerankResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_Rerank() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Rerank(::grpc::ServerContext* /*context*/, const ::embedding::RerankRequest* /*request*/, ::embedding::RerankResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* Rerank(
+      ::grpc::CallbackServerContext* /*context*/, const ::embedding::RerankRequest* /*request*/, ::embedding::RerankResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* Rerank(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::embedding::RerankRequest* /*request*/, ::embedding::RerankResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class ExperimentalWithCallbackMethod_Info : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -372,7 +483,7 @@ class EmbeddingService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(2,
+        MarkMethodCallback(3,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::google::protobuf::Empty, ::embedding::InfoResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -384,9 +495,9 @@ class EmbeddingService final {
     void SetMessageAllocatorFor_Info(
         ::grpc::experimental::MessageAllocator< ::google::protobuf::Empty, ::embedding::InfoResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
     #endif
       static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::google::protobuf::Empty, ::embedding::InfoResponse>*>(handler)
               ->SetMessageAllocator(allocator);
@@ -409,10 +520,10 @@ class EmbeddingService final {
       { return nullptr; }
   };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_GetEmbedding<ExperimentalWithCallbackMethod_GetEmbeddings<ExperimentalWithCallbackMethod_Info<Service > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_GetEmbedding<ExperimentalWithCallbackMethod_GetEmbeddings<ExperimentalWithCallbackMethod_Rerank<ExperimentalWithCallbackMethod_Info<Service > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_GetEmbedding<ExperimentalWithCallbackMethod_GetEmbeddings<ExperimentalWithCallbackMethod_Info<Service > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_GetEmbedding<ExperimentalWithCallbackMethod_GetEmbeddings<ExperimentalWithCallbackMethod_Rerank<ExperimentalWithCallbackMethod_Info<Service > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetEmbedding : public BaseClass {
    private:
@@ -448,12 +559,29 @@ class EmbeddingService final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_Rerank : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_Rerank() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_Rerank() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Rerank(::grpc::ServerContext* /*context*/, const ::embedding::RerankRequest* /*request*/, ::embedding::RerankResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_Info : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Info() {
-      ::grpc::Service::MarkMethodGeneric(2);
+      ::grpc::Service::MarkMethodGeneric(3);
     }
     ~WithGenericMethod_Info() override {
       BaseClassMustBeDerivedFromService(this);
@@ -505,12 +633,32 @@ class EmbeddingService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_Rerank : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_Rerank() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_Rerank() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Rerank(::grpc::ServerContext* /*context*/, const ::embedding::RerankRequest* /*request*/, ::embedding::RerankResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestRerank(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_Info : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Info() {
-      ::grpc::Service::MarkMethodRaw(2);
+      ::grpc::Service::MarkMethodRaw(3);
     }
     ~WithRawMethod_Info() override {
       BaseClassMustBeDerivedFromService(this);
@@ -521,7 +669,7 @@ class EmbeddingService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestInfo(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -601,6 +749,44 @@ class EmbeddingService final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_Rerank : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_Rerank() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(2,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Rerank(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_Rerank() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Rerank(::grpc::ServerContext* /*context*/, const ::embedding::RerankRequest* /*request*/, ::embedding::RerankResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* Rerank(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* Rerank(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class ExperimentalWithRawCallbackMethod_Info : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -611,7 +797,7 @@ class EmbeddingService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(2,
+        MarkMethodRawCallback(3,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -693,12 +879,39 @@ class EmbeddingService final {
     virtual ::grpc::Status StreamedGetEmbeddings(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::embedding::EmbeddingBatchRequest,::embedding::EmbeddingBatchResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_Rerank : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_Rerank() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::embedding::RerankRequest, ::embedding::RerankResponse>(
+            [this](::grpc_impl::ServerContext* context,
+                   ::grpc_impl::ServerUnaryStreamer<
+                     ::embedding::RerankRequest, ::embedding::RerankResponse>* streamer) {
+                       return this->StreamedRerank(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_Rerank() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status Rerank(::grpc::ServerContext* /*context*/, const ::embedding::RerankRequest* /*request*/, ::embedding::RerankResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedRerank(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::embedding::RerankRequest,::embedding::RerankResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_Info : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Info() {
-      ::grpc::Service::MarkMethodStreamed(2,
+      ::grpc::Service::MarkMethodStreamed(3,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::protobuf::Empty, ::embedding::InfoResponse>(
             [this](::grpc_impl::ServerContext* context,
@@ -719,9 +932,9 @@ class EmbeddingService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedInfo(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::protobuf::Empty,::embedding::InfoResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_GetEmbedding<WithStreamedUnaryMethod_GetEmbeddings<WithStreamedUnaryMethod_Info<Service > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_GetEmbedding<WithStreamedUnaryMethod_GetEmbeddings<WithStreamedUnaryMethod_Rerank<WithStreamedUnaryMethod_Info<Service > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_GetEmbedding<WithStreamedUnaryMethod_GetEmbeddings<WithStreamedUnaryMethod_Info<Service > > > StreamedService;
+  typedef WithStreamedUnaryMethod_GetEmbedding<WithStreamedUnaryMethod_GetEmbeddings<WithStreamedUnaryMethod_Rerank<WithStreamedUnaryMethod_Info<Service > > > > StreamedService;
 };
 
 }  // namespace embedding

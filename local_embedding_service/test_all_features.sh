@@ -68,7 +68,7 @@ grpcurl_call() {
 }
 
 service_is_ready() {
-  grpcurl_call list >/dev/null 2>&1
+  grpcurl_call embedding.EmbeddingService/Info >/dev/null 2>&1
 }
 
 cleanup() {
@@ -216,6 +216,13 @@ main() {
   check_file_contains "$SCRIPT_DIR/src/onnx_embedding_backend.cpp" "GetTensorMutableData" "Embedding extraction from ONNX output implemented"
   echo ""
 
+  echo "阶段五点五：Rerank 接口"
+  echo "----------------------------------------"
+  check_file_contains "$PROTO_FILE" "RerankRequest" "Proto defines RerankRequest"
+  check_file_contains "$PROTO_FILE" "RerankResponse" "Proto defines RerankResponse"
+  check_file_contains "$PROTO_FILE" "rpc Rerank" "EmbeddingService exposes Rerank RPC"
+  echo ""
+
   echo "阶段六：模型加载与集成测试"
   echo "----------------------------------------"
   if start_local_server_if_needed; then
@@ -284,6 +291,36 @@ main() {
       test_result 0 "GetEmbeddings returns multiple embedding results"
     else
       test_result 1 "GetEmbeddings returns insufficient embedding results"
+    fi
+
+    RERANK_OUTPUT="$(grpcurl_call -d '{"queries":[{"query":"hello world","documents":["hello world doc","irrelevant text","world hello again"],"top_k":2}]}' embedding.EmbeddingService/Rerank 2>&1)"
+    echo "$RERANK_OUTPUT"
+    if echo "$RERANK_OUTPUT" | grep -q '"results"'; then
+      test_result 0 "Rerank endpoint returns results"
+    else
+      test_result 1 "Rerank endpoint doesn't return results"
+    fi
+
+    if echo "$RERANK_OUTPUT" | grep -q '"items"'; then
+      test_result 0 "Rerank endpoint returns items"
+    else
+      test_result 1 "Rerank endpoint doesn't return items"
+    fi
+
+    RERANK_ITEM_COUNT="$(echo "$RERANK_OUTPUT" | grep -c '"document"' || true)"
+    if [ "$RERANK_ITEM_COUNT" -ge 2 ]; then
+      test_result 0 "Rerank returns ranked items"
+    else
+      test_result 1 "Rerank returns insufficient ranked items"
+    fi
+
+    RERANK_BATCH_OUTPUT="$(grpcurl_call -d '{"queries":[{"query":"alpha beta","documents":["alpha","beta","gamma"],"top_k":1},{"query":"cat dog","documents":["cat","dog","bird"],"top_k":2}]}' embedding.EmbeddingService/Rerank 2>&1)"
+    echo "$RERANK_BATCH_OUTPUT"
+    RERANK_RESULT_COUNT="$(echo "$RERANK_BATCH_OUTPUT" | grep -c '"items"' || true)"
+    if [ "$RERANK_RESULT_COUNT" -ge 2 ]; then
+      test_result 0 "Rerank supports batch queries"
+    else
+      test_result 1 "Rerank batch query results are missing"
     fi
 
     echo ""

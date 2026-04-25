@@ -15,6 +15,9 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 extern PROTOBUF_INTERNAL_EXPORT_embedding_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_EmbeddingBatchItem_embedding_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_embedding_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RerankItem_embedding_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_embedding_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RerankQuery_embedding_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_embedding_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_RerankResult_embedding_2eproto;
 namespace embedding {
 class EmbeddingRequestDefaultTypeInternal {
  public:
@@ -36,6 +39,26 @@ class EmbeddingBatchResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<EmbeddingBatchResponse> _instance;
 } _EmbeddingBatchResponse_default_instance_;
+class RerankQueryDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RerankQuery> _instance;
+} _RerankQuery_default_instance_;
+class RerankRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RerankRequest> _instance;
+} _RerankRequest_default_instance_;
+class RerankItemDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RerankItem> _instance;
+} _RerankItem_default_instance_;
+class RerankResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RerankResult> _instance;
+} _RerankResult_default_instance_;
+class RerankResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RerankResponse> _instance;
+} _RerankResponse_default_instance_;
 class InfoResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<InfoResponse> _instance;
@@ -126,7 +149,80 @@ static void InitDefaultsscc_info_InfoResponse_embedding_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_InfoResponse_embedding_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_InfoResponse_embedding_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_embedding_2eproto[6];
+static void InitDefaultsscc_info_RerankItem_embedding_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::embedding::_RerankItem_default_instance_;
+    new (ptr) ::embedding::RerankItem();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::embedding::RerankItem::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RerankItem_embedding_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_RerankItem_embedding_2eproto}, {}};
+
+static void InitDefaultsscc_info_RerankQuery_embedding_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::embedding::_RerankQuery_default_instance_;
+    new (ptr) ::embedding::RerankQuery();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::embedding::RerankQuery::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RerankQuery_embedding_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_RerankQuery_embedding_2eproto}, {}};
+
+static void InitDefaultsscc_info_RerankRequest_embedding_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::embedding::_RerankRequest_default_instance_;
+    new (ptr) ::embedding::RerankRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::embedding::RerankRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_RerankRequest_embedding_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_RerankRequest_embedding_2eproto}, {
+      &scc_info_RerankQuery_embedding_2eproto.base,}};
+
+static void InitDefaultsscc_info_RerankResponse_embedding_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::embedding::_RerankResponse_default_instance_;
+    new (ptr) ::embedding::RerankResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::embedding::RerankResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_RerankResponse_embedding_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_RerankResponse_embedding_2eproto}, {
+      &scc_info_RerankResult_embedding_2eproto.base,}};
+
+static void InitDefaultsscc_info_RerankResult_embedding_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::embedding::_RerankResult_default_instance_;
+    new (ptr) ::embedding::RerankResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::embedding::RerankResult::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_RerankResult_embedding_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_RerankResult_embedding_2eproto}, {
+      &scc_info_RerankItem_embedding_2eproto.base,}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_embedding_2eproto[11];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_embedding_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_embedding_2eproto = nullptr;
 
@@ -165,6 +261,42 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_embedding_2eproto::offsets[] P
   PROTOBUF_FIELD_OFFSET(::embedding::EmbeddingBatchResponse, items_),
   PROTOBUF_FIELD_OFFSET(::embedding::EmbeddingBatchResponse, error_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankQuery, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankQuery, query_),
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankQuery, documents_),
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankQuery, top_k_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankRequest, queries_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankItem, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankItem, index_),
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankItem, document_),
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankItem, score_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankResult, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankResult, items_),
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankResult, error_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankResponse, results_),
+  PROTOBUF_FIELD_OFFSET(::embedding::RerankResponse, error_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::embedding::InfoResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -179,7 +311,12 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 13, -1, sizeof(::embedding::EmbeddingBatchRequest)},
   { 19, -1, sizeof(::embedding::EmbeddingBatchItem)},
   { 26, -1, sizeof(::embedding::EmbeddingBatchResponse)},
-  { 33, -1, sizeof(::embedding::InfoResponse)},
+  { 33, -1, sizeof(::embedding::RerankQuery)},
+  { 41, -1, sizeof(::embedding::RerankRequest)},
+  { 47, -1, sizeof(::embedding::RerankItem)},
+  { 55, -1, sizeof(::embedding::RerankResult)},
+  { 62, -1, sizeof(::embedding::RerankResponse)},
+  { 69, -1, sizeof(::embedding::InfoResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -188,6 +325,11 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_EmbeddingBatchRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_EmbeddingBatchItem_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_EmbeddingBatchResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_RerankQuery_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_RerankRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_RerankItem_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_RerankResult_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_RerankResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::embedding::_InfoResponse_default_instance_),
 };
 
@@ -200,33 +342,48 @@ const char descriptor_table_protodef_embedding_2eproto[] PROTOBUF_SECTION_VARIAB
   "atchItem\022\021\n\tembedding\030\001 \003(\002\022\r\n\005error\030\002 \001"
   "(\t\"U\n\026EmbeddingBatchResponse\022,\n\005items\030\001 "
   "\003(\0132\035.embedding.EmbeddingBatchItem\022\r\n\005er"
-  "ror\030\002 \001(\t\"C\n\014InfoResponse\022\020\n\010provider\030\001 "
-  "\001(\t\022\r\n\005model\030\002 \001(\t\022\022\n\ndimensions\030\003 \001(\0052\354"
-  "\001\n\020EmbeddingService\022I\n\014GetEmbedding\022\033.em"
-  "bedding.EmbeddingRequest\032\034.embedding.Emb"
-  "eddingResponse\022T\n\rGetEmbeddings\022 .embedd"
-  "ing.EmbeddingBatchRequest\032!.embedding.Em"
-  "beddingBatchResponse\0227\n\004Info\022\026.google.pr"
-  "otobuf.Empty\032\027.embedding.InfoResponseB\003\370"
-  "\001\001b\006proto3"
+  "ror\030\002 \001(\t\">\n\013RerankQuery\022\r\n\005query\030\001 \001(\t\022"
+  "\021\n\tdocuments\030\002 \003(\t\022\r\n\005top_k\030\003 \001(\005\"8\n\rRer"
+  "ankRequest\022\'\n\007queries\030\001 \003(\0132\026.embedding."
+  "RerankQuery\"<\n\nRerankItem\022\r\n\005index\030\001 \001(\005"
+  "\022\020\n\010document\030\002 \001(\t\022\r\n\005score\030\003 \001(\002\"C\n\014Rer"
+  "ankResult\022$\n\005items\030\001 \003(\0132\025.embedding.Rer"
+  "ankItem\022\r\n\005error\030\002 \001(\t\"I\n\016RerankResponse"
+  "\022(\n\007results\030\001 \003(\0132\027.embedding.RerankResu"
+  "lt\022\r\n\005error\030\002 \001(\t\"C\n\014InfoResponse\022\020\n\010pro"
+  "vider\030\001 \001(\t\022\r\n\005model\030\002 \001(\t\022\022\n\ndimensions"
+  "\030\003 \001(\0052\253\002\n\020EmbeddingService\022I\n\014GetEmbedd"
+  "ing\022\033.embedding.EmbeddingRequest\032\034.embed"
+  "ding.EmbeddingResponse\022T\n\rGetEmbeddings\022"
+  " .embedding.EmbeddingBatchRequest\032!.embe"
+  "dding.EmbeddingBatchResponse\022=\n\006Rerank\022\030"
+  ".embedding.RerankRequest\032\031.embedding.Rer"
+  "ankResponse\0227\n\004Info\022\026.google.protobuf.Em"
+  "pty\032\027.embedding.InfoResponseB\003\370\001\001b\006proto"
+  "3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_embedding_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2fempty_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_embedding_2eproto_sccs[6] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_embedding_2eproto_sccs[11] = {
   &scc_info_EmbeddingBatchItem_embedding_2eproto.base,
   &scc_info_EmbeddingBatchRequest_embedding_2eproto.base,
   &scc_info_EmbeddingBatchResponse_embedding_2eproto.base,
   &scc_info_EmbeddingRequest_embedding_2eproto.base,
   &scc_info_EmbeddingResponse_embedding_2eproto.base,
   &scc_info_InfoResponse_embedding_2eproto.base,
+  &scc_info_RerankItem_embedding_2eproto.base,
+  &scc_info_RerankQuery_embedding_2eproto.base,
+  &scc_info_RerankRequest_embedding_2eproto.base,
+  &scc_info_RerankResponse_embedding_2eproto.base,
+  &scc_info_RerankResult_embedding_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_embedding_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_embedding_2eproto = {
-  false, false, descriptor_table_protodef_embedding_2eproto, "embedding.proto", 650,
-  &descriptor_table_embedding_2eproto_once, descriptor_table_embedding_2eproto_sccs, descriptor_table_embedding_2eproto_deps, 6, 1,
+  false, false, descriptor_table_protodef_embedding_2eproto, "embedding.proto", 1041,
+  &descriptor_table_embedding_2eproto_once, descriptor_table_embedding_2eproto_sccs, descriptor_table_embedding_2eproto_deps, 11, 1,
   schemas, file_default_instances, TableStruct_embedding_2eproto::offsets,
-  file_level_metadata_embedding_2eproto, 6, file_level_enum_descriptors_embedding_2eproto, file_level_service_descriptors_embedding_2eproto,
+  file_level_metadata_embedding_2eproto, 11, file_level_enum_descriptors_embedding_2eproto, file_level_service_descriptors_embedding_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -1381,6 +1538,1232 @@ void EmbeddingBatchResponse::InternalSwap(EmbeddingBatchResponse* other) {
 
 // ===================================================================
 
+void RerankQuery::InitAsDefaultInstance() {
+}
+class RerankQuery::_Internal {
+ public:
+};
+
+RerankQuery::RerankQuery(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  documents_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:embedding.RerankQuery)
+}
+RerankQuery::RerankQuery(const RerankQuery& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      documents_(from.documents_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  query_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_query().empty()) {
+    query_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_query(),
+      GetArena());
+  }
+  top_k_ = from.top_k_;
+  // @@protoc_insertion_point(copy_constructor:embedding.RerankQuery)
+}
+
+void RerankQuery::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_RerankQuery_embedding_2eproto.base);
+  query_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  top_k_ = 0;
+}
+
+RerankQuery::~RerankQuery() {
+  // @@protoc_insertion_point(destructor:embedding.RerankQuery)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void RerankQuery::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  query_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void RerankQuery::ArenaDtor(void* object) {
+  RerankQuery* _this = reinterpret_cast< RerankQuery* >(object);
+  (void)_this;
+}
+void RerankQuery::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void RerankQuery::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const RerankQuery& RerankQuery::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RerankQuery_embedding_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void RerankQuery::Clear() {
+// @@protoc_insertion_point(message_clear_start:embedding.RerankQuery)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  documents_.Clear();
+  query_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  top_k_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RerankQuery::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string query = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_query();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "embedding.RerankQuery.query"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated string documents = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_documents();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "embedding.RerankQuery.documents"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // int32 top_k = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          top_k_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RerankQuery::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:embedding.RerankQuery)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string query = 1;
+  if (this->query().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_query().data(), static_cast<int>(this->_internal_query().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "embedding.RerankQuery.query");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_query(), target);
+  }
+
+  // repeated string documents = 2;
+  for (int i = 0, n = this->_internal_documents_size(); i < n; i++) {
+    const auto& s = this->_internal_documents(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "embedding.RerankQuery.documents");
+    target = stream->WriteString(2, s, target);
+  }
+
+  // int32 top_k = 3;
+  if (this->top_k() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_top_k(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:embedding.RerankQuery)
+  return target;
+}
+
+size_t RerankQuery::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:embedding.RerankQuery)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated string documents = 2;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(documents_.size());
+  for (int i = 0, n = documents_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      documents_.Get(i));
+  }
+
+  // string query = 1;
+  if (this->query().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_query());
+  }
+
+  // int32 top_k = 3;
+  if (this->top_k() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_top_k());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RerankQuery::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:embedding.RerankQuery)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RerankQuery* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RerankQuery>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:embedding.RerankQuery)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:embedding.RerankQuery)
+    MergeFrom(*source);
+  }
+}
+
+void RerankQuery::MergeFrom(const RerankQuery& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:embedding.RerankQuery)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  documents_.MergeFrom(from.documents_);
+  if (from.query().size() > 0) {
+    _internal_set_query(from._internal_query());
+  }
+  if (from.top_k() != 0) {
+    _internal_set_top_k(from._internal_top_k());
+  }
+}
+
+void RerankQuery::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:embedding.RerankQuery)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RerankQuery::CopyFrom(const RerankQuery& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:embedding.RerankQuery)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RerankQuery::IsInitialized() const {
+  return true;
+}
+
+void RerankQuery::InternalSwap(RerankQuery* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  documents_.InternalSwap(&other->documents_);
+  query_.Swap(&other->query_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  swap(top_k_, other->top_k_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RerankQuery::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void RerankRequest::InitAsDefaultInstance() {
+}
+class RerankRequest::_Internal {
+ public:
+};
+
+RerankRequest::RerankRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  queries_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:embedding.RerankRequest)
+}
+RerankRequest::RerankRequest(const RerankRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      queries_(from.queries_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:embedding.RerankRequest)
+}
+
+void RerankRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_RerankRequest_embedding_2eproto.base);
+}
+
+RerankRequest::~RerankRequest() {
+  // @@protoc_insertion_point(destructor:embedding.RerankRequest)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void RerankRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+}
+
+void RerankRequest::ArenaDtor(void* object) {
+  RerankRequest* _this = reinterpret_cast< RerankRequest* >(object);
+  (void)_this;
+}
+void RerankRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void RerankRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const RerankRequest& RerankRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RerankRequest_embedding_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void RerankRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:embedding.RerankRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  queries_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RerankRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // repeated .embedding.RerankQuery queries = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_queries(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RerankRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:embedding.RerankRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .embedding.RerankQuery queries = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_queries_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_queries(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:embedding.RerankRequest)
+  return target;
+}
+
+size_t RerankRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:embedding.RerankRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .embedding.RerankQuery queries = 1;
+  total_size += 1UL * this->_internal_queries_size();
+  for (const auto& msg : this->queries_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RerankRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:embedding.RerankRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RerankRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RerankRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:embedding.RerankRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:embedding.RerankRequest)
+    MergeFrom(*source);
+  }
+}
+
+void RerankRequest::MergeFrom(const RerankRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:embedding.RerankRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  queries_.MergeFrom(from.queries_);
+}
+
+void RerankRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:embedding.RerankRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RerankRequest::CopyFrom(const RerankRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:embedding.RerankRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RerankRequest::IsInitialized() const {
+  return true;
+}
+
+void RerankRequest::InternalSwap(RerankRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  queries_.InternalSwap(&other->queries_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RerankRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void RerankItem::InitAsDefaultInstance() {
+}
+class RerankItem::_Internal {
+ public:
+};
+
+RerankItem::RerankItem(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:embedding.RerankItem)
+}
+RerankItem::RerankItem(const RerankItem& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  document_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_document().empty()) {
+    document_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_document(),
+      GetArena());
+  }
+  ::memcpy(&index_, &from.index_,
+    static_cast<size_t>(reinterpret_cast<char*>(&score_) -
+    reinterpret_cast<char*>(&index_)) + sizeof(score_));
+  // @@protoc_insertion_point(copy_constructor:embedding.RerankItem)
+}
+
+void RerankItem::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_RerankItem_embedding_2eproto.base);
+  document_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&index_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&score_) -
+      reinterpret_cast<char*>(&index_)) + sizeof(score_));
+}
+
+RerankItem::~RerankItem() {
+  // @@protoc_insertion_point(destructor:embedding.RerankItem)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void RerankItem::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  document_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void RerankItem::ArenaDtor(void* object) {
+  RerankItem* _this = reinterpret_cast< RerankItem* >(object);
+  (void)_this;
+}
+void RerankItem::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void RerankItem::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const RerankItem& RerankItem::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RerankItem_embedding_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void RerankItem::Clear() {
+// @@protoc_insertion_point(message_clear_start:embedding.RerankItem)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  document_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::memset(&index_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&score_) -
+      reinterpret_cast<char*>(&index_)) + sizeof(score_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RerankItem::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // int32 index = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string document = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_document();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "embedding.RerankItem.document"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float score = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
+          score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RerankItem::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:embedding.RerankItem)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 index = 1;
+  if (this->index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_index(), target);
+  }
+
+  // string document = 2;
+  if (this->document().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_document().data(), static_cast<int>(this->_internal_document().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "embedding.RerankItem.document");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_document(), target);
+  }
+
+  // float score = 3;
+  if (!(this->score() <= 0 && this->score() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_score(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:embedding.RerankItem)
+  return target;
+}
+
+size_t RerankItem::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:embedding.RerankItem)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string document = 2;
+  if (this->document().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_document());
+  }
+
+  // int32 index = 1;
+  if (this->index() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_index());
+  }
+
+  // float score = 3;
+  if (!(this->score() <= 0 && this->score() >= 0)) {
+    total_size += 1 + 4;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RerankItem::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:embedding.RerankItem)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RerankItem* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RerankItem>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:embedding.RerankItem)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:embedding.RerankItem)
+    MergeFrom(*source);
+  }
+}
+
+void RerankItem::MergeFrom(const RerankItem& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:embedding.RerankItem)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.document().size() > 0) {
+    _internal_set_document(from._internal_document());
+  }
+  if (from.index() != 0) {
+    _internal_set_index(from._internal_index());
+  }
+  if (!(from.score() <= 0 && from.score() >= 0)) {
+    _internal_set_score(from._internal_score());
+  }
+}
+
+void RerankItem::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:embedding.RerankItem)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RerankItem::CopyFrom(const RerankItem& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:embedding.RerankItem)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RerankItem::IsInitialized() const {
+  return true;
+}
+
+void RerankItem::InternalSwap(RerankItem* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  document_.Swap(&other->document_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RerankItem, score_)
+      + sizeof(RerankItem::score_)
+      - PROTOBUF_FIELD_OFFSET(RerankItem, index_)>(
+          reinterpret_cast<char*>(&index_),
+          reinterpret_cast<char*>(&other->index_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RerankItem::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void RerankResult::InitAsDefaultInstance() {
+}
+class RerankResult::_Internal {
+ public:
+};
+
+RerankResult::RerankResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  items_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:embedding.RerankResult)
+}
+RerankResult::RerankResult(const RerankResult& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      items_(from.items_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_error().empty()) {
+    error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_error(),
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:embedding.RerankResult)
+}
+
+void RerankResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_RerankResult_embedding_2eproto.base);
+  error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+RerankResult::~RerankResult() {
+  // @@protoc_insertion_point(destructor:embedding.RerankResult)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void RerankResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  error_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void RerankResult::ArenaDtor(void* object) {
+  RerankResult* _this = reinterpret_cast< RerankResult* >(object);
+  (void)_this;
+}
+void RerankResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void RerankResult::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const RerankResult& RerankResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RerankResult_embedding_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void RerankResult::Clear() {
+// @@protoc_insertion_point(message_clear_start:embedding.RerankResult)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  items_.Clear();
+  error_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RerankResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // repeated .embedding.RerankItem items = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_items(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // string error = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_error();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "embedding.RerankResult.error"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RerankResult::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:embedding.RerankResult)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .embedding.RerankItem items = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_items_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_items(i), target, stream);
+  }
+
+  // string error = 2;
+  if (this->error().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_error().data(), static_cast<int>(this->_internal_error().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "embedding.RerankResult.error");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_error(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:embedding.RerankResult)
+  return target;
+}
+
+size_t RerankResult::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:embedding.RerankResult)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .embedding.RerankItem items = 1;
+  total_size += 1UL * this->_internal_items_size();
+  for (const auto& msg : this->items_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // string error = 2;
+  if (this->error().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RerankResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:embedding.RerankResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RerankResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RerankResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:embedding.RerankResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:embedding.RerankResult)
+    MergeFrom(*source);
+  }
+}
+
+void RerankResult::MergeFrom(const RerankResult& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:embedding.RerankResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  items_.MergeFrom(from.items_);
+  if (from.error().size() > 0) {
+    _internal_set_error(from._internal_error());
+  }
+}
+
+void RerankResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:embedding.RerankResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RerankResult::CopyFrom(const RerankResult& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:embedding.RerankResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RerankResult::IsInitialized() const {
+  return true;
+}
+
+void RerankResult::InternalSwap(RerankResult* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  items_.InternalSwap(&other->items_);
+  error_.Swap(&other->error_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RerankResult::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void RerankResponse::InitAsDefaultInstance() {
+}
+class RerankResponse::_Internal {
+ public:
+};
+
+RerankResponse::RerankResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  results_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:embedding.RerankResponse)
+}
+RerankResponse::RerankResponse(const RerankResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      results_(from.results_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_error().empty()) {
+    error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_error(),
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:embedding.RerankResponse)
+}
+
+void RerankResponse::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_RerankResponse_embedding_2eproto.base);
+  error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+RerankResponse::~RerankResponse() {
+  // @@protoc_insertion_point(destructor:embedding.RerankResponse)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void RerankResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  error_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void RerankResponse::ArenaDtor(void* object) {
+  RerankResponse* _this = reinterpret_cast< RerankResponse* >(object);
+  (void)_this;
+}
+void RerankResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void RerankResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const RerankResponse& RerankResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RerankResponse_embedding_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void RerankResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:embedding.RerankResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  results_.Clear();
+  error_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RerankResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // repeated .embedding.RerankResult results = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_results(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // string error = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_error();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "embedding.RerankResponse.error"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RerankResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:embedding.RerankResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .embedding.RerankResult results = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_results_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_results(i), target, stream);
+  }
+
+  // string error = 2;
+  if (this->error().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_error().data(), static_cast<int>(this->_internal_error().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "embedding.RerankResponse.error");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_error(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:embedding.RerankResponse)
+  return target;
+}
+
+size_t RerankResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:embedding.RerankResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .embedding.RerankResult results = 1;
+  total_size += 1UL * this->_internal_results_size();
+  for (const auto& msg : this->results_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // string error = 2;
+  if (this->error().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RerankResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:embedding.RerankResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RerankResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RerankResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:embedding.RerankResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:embedding.RerankResponse)
+    MergeFrom(*source);
+  }
+}
+
+void RerankResponse::MergeFrom(const RerankResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:embedding.RerankResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  results_.MergeFrom(from.results_);
+  if (from.error().size() > 0) {
+    _internal_set_error(from._internal_error());
+  }
+}
+
+void RerankResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:embedding.RerankResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RerankResponse::CopyFrom(const RerankResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:embedding.RerankResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RerankResponse::IsInitialized() const {
+  return true;
+}
+
+void RerankResponse::InternalSwap(RerankResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  results_.InternalSwap(&other->results_);
+  error_.Swap(&other->error_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RerankResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 void InfoResponse::InitAsDefaultInstance() {
 }
 class InfoResponse::_Internal {
@@ -1670,6 +3053,21 @@ template<> PROTOBUF_NOINLINE ::embedding::EmbeddingBatchItem* Arena::CreateMaybe
 }
 template<> PROTOBUF_NOINLINE ::embedding::EmbeddingBatchResponse* Arena::CreateMaybeMessage< ::embedding::EmbeddingBatchResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::embedding::EmbeddingBatchResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::embedding::RerankQuery* Arena::CreateMaybeMessage< ::embedding::RerankQuery >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::embedding::RerankQuery >(arena);
+}
+template<> PROTOBUF_NOINLINE ::embedding::RerankRequest* Arena::CreateMaybeMessage< ::embedding::RerankRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::embedding::RerankRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::embedding::RerankItem* Arena::CreateMaybeMessage< ::embedding::RerankItem >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::embedding::RerankItem >(arena);
+}
+template<> PROTOBUF_NOINLINE ::embedding::RerankResult* Arena::CreateMaybeMessage< ::embedding::RerankResult >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::embedding::RerankResult >(arena);
+}
+template<> PROTOBUF_NOINLINE ::embedding::RerankResponse* Arena::CreateMaybeMessage< ::embedding::RerankResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::embedding::RerankResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::embedding::InfoResponse* Arena::CreateMaybeMessage< ::embedding::InfoResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::embedding::InfoResponse >(arena);

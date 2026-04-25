@@ -1,7 +1,13 @@
 #include "embedding_service_impl.h"
 
+#include <algorithm>
+#include <cctype>
 #include <cstdlib>
 #include <iostream>
+#include <string>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "mock_embedding_backend.h"
 
@@ -10,6 +16,33 @@
 #endif
 
 namespace embedding_service {
+
+namespace {
+
+std::vector<std::string> TokenizeForRerank(const std::string& text) {
+  std::vector<std::string> tokens;
+  std::string current;
+  current.reserve(text.size());
+  for (unsigned char ch : text) {
+    if (std::isalnum(ch)) {
+      current.push_back(static_cast<char>(std::tolower(ch)));
+    } else if (!current.empty()) {
+      tokens.push_back(current);
+      current.clear();
+    }
+  }
+  if (!current.empty()) {
+    tokens.push_back(current);
+  }
+  return tokens;
+}
+
+std::unordered_set<std::string> TokenSetForRerank(const std::string& text) {
+  std::vector<std::string> tokens = TokenizeForRerank(text);
+  return std::unordered_set<std::string>(tokens.begin(), tokens.end());
+}
+
+}  // namespace
 
 static std::string ReadStringEnv(const char* name, const char* default_value) {
   const char* value = std::getenv(name);
@@ -124,6 +157,76 @@ grpc::Status EmbeddingServiceImpl::GetEmbeddings(
     }
     item->set_error("");
   }
+  response->set_error("");
+  return grpc::Status::OK;
+}
+
+grpc::Status EmbeddingServiceImpl::Rerank(grpc::ServerContext*,
+                                          const embedding::RerankRequest* request,
+                                          embedding::RerankResponse* response) {
+  const int query_count = request->queries_size();
+  if (query_count <= 0) {
+    response->set_error("queries must not be empty");
+    return grpc::Status::OK;
+  }
+
+  for (const auto& query : request->queries()) {
+    auto* result = response->add_results();
+    if (query.query().empty()) {
+      result->set_error("query must not be empty");
+      continue;
+    }
+    if (query.documents_size() <= 0) {
+      result->set_error("documents must not be empty");
+      continue;
+    }
+
+    const auto query_tokens = TokenSetForRerank(query.query());
+    if (query_tokens.empty()) {
+      result->set_error("query must not be empty");
+      continue;
+    }
+
+    struct Candidate {
+      int index;
+      std::string document;
+      float score;
+    };
+
+    std::vector<Candidate> candidates;
+    candidates.reserve(static_cast<size_t>(query.documents_size()));
+    for (int i = 0; i < query.documents_size(); ++i) {
+      const std::string& document = query.documents(i);
+      const auto doc_tokens = TokenSetForRerank(document);
+      int overlap = 0;
+      for (const auto& token : doc_tokens) {
+        if (query_tokens.count(token) > 0) {
+          ++overlap;
+        }
+      }
+      candidates.push_back({i, document, static_cast<float>(overlap)});
+    }
+
+    std::stable_sort(candidates.begin(), candidates.end(),
+                     [](const Candidate& lhs, const Candidate& rhs) {
+                       return lhs.score > rhs.score;
+                     });
+
+    int top_k = query.top_k();
+    if (top_k <= 0 || top_k > static_cast<int>(candidates.size())) {
+      top_k = static_cast<int>(candidates.size());
+    }
+
+    for (int i = 0; i < top_k; ++i) {
+      const auto& candidate = candidates[static_cast<size_t>(i)];
+      auto* item = result->add_items();
+      item->set_index(candidate.index);
+      item->set_document(candidate.document);
+      item->set_score(candidate.score);
+    }
+    result->set_error("");
+  }
+
   response->set_error("");
   return grpc::Status::OK;
 }
