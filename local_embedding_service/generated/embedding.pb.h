@@ -48,7 +48,7 @@ struct TableStruct_embedding_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[11]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -74,6 +74,21 @@ extern EmbeddingResponseDefaultTypeInternal _EmbeddingResponse_default_instance_
 class InfoResponse;
 class InfoResponseDefaultTypeInternal;
 extern InfoResponseDefaultTypeInternal _InfoResponse_default_instance_;
+class RerankItem;
+class RerankItemDefaultTypeInternal;
+extern RerankItemDefaultTypeInternal _RerankItem_default_instance_;
+class RerankQuery;
+class RerankQueryDefaultTypeInternal;
+extern RerankQueryDefaultTypeInternal _RerankQuery_default_instance_;
+class RerankRequest;
+class RerankRequestDefaultTypeInternal;
+extern RerankRequestDefaultTypeInternal _RerankRequest_default_instance_;
+class RerankResponse;
+class RerankResponseDefaultTypeInternal;
+extern RerankResponseDefaultTypeInternal _RerankResponse_default_instance_;
+class RerankResult;
+class RerankResultDefaultTypeInternal;
+extern RerankResultDefaultTypeInternal _RerankResult_default_instance_;
 }  // namespace embedding
 PROTOBUF_NAMESPACE_OPEN
 template<> ::embedding::EmbeddingBatchItem* Arena::CreateMaybeMessage<::embedding::EmbeddingBatchItem>(Arena*);
@@ -82,6 +97,11 @@ template<> ::embedding::EmbeddingBatchResponse* Arena::CreateMaybeMessage<::embe
 template<> ::embedding::EmbeddingRequest* Arena::CreateMaybeMessage<::embedding::EmbeddingRequest>(Arena*);
 template<> ::embedding::EmbeddingResponse* Arena::CreateMaybeMessage<::embedding::EmbeddingResponse>(Arena*);
 template<> ::embedding::InfoResponse* Arena::CreateMaybeMessage<::embedding::InfoResponse>(Arena*);
+template<> ::embedding::RerankItem* Arena::CreateMaybeMessage<::embedding::RerankItem>(Arena*);
+template<> ::embedding::RerankQuery* Arena::CreateMaybeMessage<::embedding::RerankQuery>(Arena*);
+template<> ::embedding::RerankRequest* Arena::CreateMaybeMessage<::embedding::RerankRequest>(Arena*);
+template<> ::embedding::RerankResponse* Arena::CreateMaybeMessage<::embedding::RerankResponse>(Arena*);
+template<> ::embedding::RerankResult* Arena::CreateMaybeMessage<::embedding::RerankResult>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace embedding {
 
@@ -921,6 +941,863 @@ class EmbeddingBatchResponse PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class RerankQuery PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:embedding.RerankQuery) */ {
+ public:
+  inline RerankQuery() : RerankQuery(nullptr) {};
+  virtual ~RerankQuery();
+
+  RerankQuery(const RerankQuery& from);
+  RerankQuery(RerankQuery&& from) noexcept
+    : RerankQuery() {
+    *this = ::std::move(from);
+  }
+
+  inline RerankQuery& operator=(const RerankQuery& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RerankQuery& operator=(RerankQuery&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RerankQuery& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RerankQuery* internal_default_instance() {
+    return reinterpret_cast<const RerankQuery*>(
+               &_RerankQuery_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(RerankQuery& a, RerankQuery& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RerankQuery* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RerankQuery* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RerankQuery* New() const final {
+    return CreateMaybeMessage<RerankQuery>(nullptr);
+  }
+
+  RerankQuery* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RerankQuery>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RerankQuery& from);
+  void MergeFrom(const RerankQuery& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RerankQuery* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "embedding.RerankQuery";
+  }
+  protected:
+  explicit RerankQuery(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_embedding_2eproto);
+    return ::descriptor_table_embedding_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDocumentsFieldNumber = 2,
+    kQueryFieldNumber = 1,
+    kTopKFieldNumber = 3,
+  };
+  // repeated string documents = 2;
+  int documents_size() const;
+  private:
+  int _internal_documents_size() const;
+  public:
+  void clear_documents();
+  const std::string& documents(int index) const;
+  std::string* mutable_documents(int index);
+  void set_documents(int index, const std::string& value);
+  void set_documents(int index, std::string&& value);
+  void set_documents(int index, const char* value);
+  void set_documents(int index, const char* value, size_t size);
+  std::string* add_documents();
+  void add_documents(const std::string& value);
+  void add_documents(std::string&& value);
+  void add_documents(const char* value);
+  void add_documents(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& documents() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_documents();
+  private:
+  const std::string& _internal_documents(int index) const;
+  std::string* _internal_add_documents();
+  public:
+
+  // string query = 1;
+  void clear_query();
+  const std::string& query() const;
+  void set_query(const std::string& value);
+  void set_query(std::string&& value);
+  void set_query(const char* value);
+  void set_query(const char* value, size_t size);
+  std::string* mutable_query();
+  std::string* release_query();
+  void set_allocated_query(std::string* query);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_query();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_query(
+      std::string* query);
+  private:
+  const std::string& _internal_query() const;
+  void _internal_set_query(const std::string& value);
+  std::string* _internal_mutable_query();
+  public:
+
+  // int32 top_k = 3;
+  void clear_top_k();
+  ::PROTOBUF_NAMESPACE_ID::int32 top_k() const;
+  void set_top_k(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_top_k() const;
+  void _internal_set_top_k(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:embedding.RerankQuery)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> documents_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr query_;
+  ::PROTOBUF_NAMESPACE_ID::int32 top_k_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_embedding_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RerankRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:embedding.RerankRequest) */ {
+ public:
+  inline RerankRequest() : RerankRequest(nullptr) {};
+  virtual ~RerankRequest();
+
+  RerankRequest(const RerankRequest& from);
+  RerankRequest(RerankRequest&& from) noexcept
+    : RerankRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline RerankRequest& operator=(const RerankRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RerankRequest& operator=(RerankRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RerankRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RerankRequest* internal_default_instance() {
+    return reinterpret_cast<const RerankRequest*>(
+               &_RerankRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(RerankRequest& a, RerankRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RerankRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RerankRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RerankRequest* New() const final {
+    return CreateMaybeMessage<RerankRequest>(nullptr);
+  }
+
+  RerankRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RerankRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RerankRequest& from);
+  void MergeFrom(const RerankRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RerankRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "embedding.RerankRequest";
+  }
+  protected:
+  explicit RerankRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_embedding_2eproto);
+    return ::descriptor_table_embedding_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kQueriesFieldNumber = 1,
+  };
+  // repeated .embedding.RerankQuery queries = 1;
+  int queries_size() const;
+  private:
+  int _internal_queries_size() const;
+  public:
+  void clear_queries();
+  ::embedding::RerankQuery* mutable_queries(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankQuery >*
+      mutable_queries();
+  private:
+  const ::embedding::RerankQuery& _internal_queries(int index) const;
+  ::embedding::RerankQuery* _internal_add_queries();
+  public:
+  const ::embedding::RerankQuery& queries(int index) const;
+  ::embedding::RerankQuery* add_queries();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankQuery >&
+      queries() const;
+
+  // @@protoc_insertion_point(class_scope:embedding.RerankRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankQuery > queries_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_embedding_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RerankItem PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:embedding.RerankItem) */ {
+ public:
+  inline RerankItem() : RerankItem(nullptr) {};
+  virtual ~RerankItem();
+
+  RerankItem(const RerankItem& from);
+  RerankItem(RerankItem&& from) noexcept
+    : RerankItem() {
+    *this = ::std::move(from);
+  }
+
+  inline RerankItem& operator=(const RerankItem& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RerankItem& operator=(RerankItem&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RerankItem& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RerankItem* internal_default_instance() {
+    return reinterpret_cast<const RerankItem*>(
+               &_RerankItem_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(RerankItem& a, RerankItem& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RerankItem* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RerankItem* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RerankItem* New() const final {
+    return CreateMaybeMessage<RerankItem>(nullptr);
+  }
+
+  RerankItem* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RerankItem>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RerankItem& from);
+  void MergeFrom(const RerankItem& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RerankItem* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "embedding.RerankItem";
+  }
+  protected:
+  explicit RerankItem(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_embedding_2eproto);
+    return ::descriptor_table_embedding_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDocumentFieldNumber = 2,
+    kIndexFieldNumber = 1,
+    kScoreFieldNumber = 3,
+  };
+  // string document = 2;
+  void clear_document();
+  const std::string& document() const;
+  void set_document(const std::string& value);
+  void set_document(std::string&& value);
+  void set_document(const char* value);
+  void set_document(const char* value, size_t size);
+  std::string* mutable_document();
+  std::string* release_document();
+  void set_allocated_document(std::string* document);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_document();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_document(
+      std::string* document);
+  private:
+  const std::string& _internal_document() const;
+  void _internal_set_document(const std::string& value);
+  std::string* _internal_mutable_document();
+  public:
+
+  // int32 index = 1;
+  void clear_index();
+  ::PROTOBUF_NAMESPACE_ID::int32 index() const;
+  void set_index(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_index() const;
+  void _internal_set_index(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float score = 3;
+  void clear_score();
+  float score() const;
+  void set_score(float value);
+  private:
+  float _internal_score() const;
+  void _internal_set_score(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:embedding.RerankItem)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr document_;
+  ::PROTOBUF_NAMESPACE_ID::int32 index_;
+  float score_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_embedding_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RerankResult PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:embedding.RerankResult) */ {
+ public:
+  inline RerankResult() : RerankResult(nullptr) {};
+  virtual ~RerankResult();
+
+  RerankResult(const RerankResult& from);
+  RerankResult(RerankResult&& from) noexcept
+    : RerankResult() {
+    *this = ::std::move(from);
+  }
+
+  inline RerankResult& operator=(const RerankResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RerankResult& operator=(RerankResult&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RerankResult& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RerankResult* internal_default_instance() {
+    return reinterpret_cast<const RerankResult*>(
+               &_RerankResult_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(RerankResult& a, RerankResult& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RerankResult* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RerankResult* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RerankResult* New() const final {
+    return CreateMaybeMessage<RerankResult>(nullptr);
+  }
+
+  RerankResult* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RerankResult>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RerankResult& from);
+  void MergeFrom(const RerankResult& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RerankResult* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "embedding.RerankResult";
+  }
+  protected:
+  explicit RerankResult(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_embedding_2eproto);
+    return ::descriptor_table_embedding_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kItemsFieldNumber = 1,
+    kErrorFieldNumber = 2,
+  };
+  // repeated .embedding.RerankItem items = 1;
+  int items_size() const;
+  private:
+  int _internal_items_size() const;
+  public:
+  void clear_items();
+  ::embedding::RerankItem* mutable_items(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankItem >*
+      mutable_items();
+  private:
+  const ::embedding::RerankItem& _internal_items(int index) const;
+  ::embedding::RerankItem* _internal_add_items();
+  public:
+  const ::embedding::RerankItem& items(int index) const;
+  ::embedding::RerankItem* add_items();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankItem >&
+      items() const;
+
+  // string error = 2;
+  void clear_error();
+  const std::string& error() const;
+  void set_error(const std::string& value);
+  void set_error(std::string&& value);
+  void set_error(const char* value);
+  void set_error(const char* value, size_t size);
+  std::string* mutable_error();
+  std::string* release_error();
+  void set_allocated_error(std::string* error);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_error();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_error(
+      std::string* error);
+  private:
+  const std::string& _internal_error() const;
+  void _internal_set_error(const std::string& value);
+  std::string* _internal_mutable_error();
+  public:
+
+  // @@protoc_insertion_point(class_scope:embedding.RerankResult)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankItem > items_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_embedding_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RerankResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:embedding.RerankResponse) */ {
+ public:
+  inline RerankResponse() : RerankResponse(nullptr) {};
+  virtual ~RerankResponse();
+
+  RerankResponse(const RerankResponse& from);
+  RerankResponse(RerankResponse&& from) noexcept
+    : RerankResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline RerankResponse& operator=(const RerankResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RerankResponse& operator=(RerankResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RerankResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RerankResponse* internal_default_instance() {
+    return reinterpret_cast<const RerankResponse*>(
+               &_RerankResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(RerankResponse& a, RerankResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RerankResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RerankResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RerankResponse* New() const final {
+    return CreateMaybeMessage<RerankResponse>(nullptr);
+  }
+
+  RerankResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RerankResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RerankResponse& from);
+  void MergeFrom(const RerankResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RerankResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "embedding.RerankResponse";
+  }
+  protected:
+  explicit RerankResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_embedding_2eproto);
+    return ::descriptor_table_embedding_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kResultsFieldNumber = 1,
+    kErrorFieldNumber = 2,
+  };
+  // repeated .embedding.RerankResult results = 1;
+  int results_size() const;
+  private:
+  int _internal_results_size() const;
+  public:
+  void clear_results();
+  ::embedding::RerankResult* mutable_results(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankResult >*
+      mutable_results();
+  private:
+  const ::embedding::RerankResult& _internal_results(int index) const;
+  ::embedding::RerankResult* _internal_add_results();
+  public:
+  const ::embedding::RerankResult& results(int index) const;
+  ::embedding::RerankResult* add_results();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankResult >&
+      results() const;
+
+  // string error = 2;
+  void clear_error();
+  const std::string& error() const;
+  void set_error(const std::string& value);
+  void set_error(std::string&& value);
+  void set_error(const char* value);
+  void set_error(const char* value, size_t size);
+  std::string* mutable_error();
+  std::string* release_error();
+  void set_allocated_error(std::string* error);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_error();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_error(
+      std::string* error);
+  private:
+  const std::string& _internal_error() const;
+  void _internal_set_error(const std::string& value);
+  std::string* _internal_mutable_error();
+  public:
+
+  // @@protoc_insertion_point(class_scope:embedding.RerankResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankResult > results_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_embedding_2eproto;
+};
+// -------------------------------------------------------------------
+
 class InfoResponse PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:embedding.InfoResponse) */ {
  public:
@@ -963,7 +1840,7 @@ class InfoResponse PROTOBUF_FINAL :
                &_InfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    10;
 
   friend void swap(InfoResponse& a, InfoResponse& b) {
     a.Swap(&b);
@@ -1670,6 +2547,601 @@ inline void EmbeddingBatchResponse::unsafe_arena_set_allocated_error(
 
 // -------------------------------------------------------------------
 
+// RerankQuery
+
+// string query = 1;
+inline void RerankQuery::clear_query() {
+  query_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& RerankQuery::query() const {
+  // @@protoc_insertion_point(field_get:embedding.RerankQuery.query)
+  return _internal_query();
+}
+inline void RerankQuery::set_query(const std::string& value) {
+  _internal_set_query(value);
+  // @@protoc_insertion_point(field_set:embedding.RerankQuery.query)
+}
+inline std::string* RerankQuery::mutable_query() {
+  // @@protoc_insertion_point(field_mutable:embedding.RerankQuery.query)
+  return _internal_mutable_query();
+}
+inline const std::string& RerankQuery::_internal_query() const {
+  return query_.Get();
+}
+inline void RerankQuery::_internal_set_query(const std::string& value) {
+  
+  query_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void RerankQuery::set_query(std::string&& value) {
+  
+  query_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:embedding.RerankQuery.query)
+}
+inline void RerankQuery::set_query(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  query_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:embedding.RerankQuery.query)
+}
+inline void RerankQuery::set_query(const char* value,
+    size_t size) {
+  
+  query_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:embedding.RerankQuery.query)
+}
+inline std::string* RerankQuery::_internal_mutable_query() {
+  
+  return query_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* RerankQuery::release_query() {
+  // @@protoc_insertion_point(field_release:embedding.RerankQuery.query)
+  return query_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RerankQuery::set_allocated_query(std::string* query) {
+  if (query != nullptr) {
+    
+  } else {
+    
+  }
+  query_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), query,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:embedding.RerankQuery.query)
+}
+inline std::string* RerankQuery::unsafe_arena_release_query() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:embedding.RerankQuery.query)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return query_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void RerankQuery::unsafe_arena_set_allocated_query(
+    std::string* query) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (query != nullptr) {
+    
+  } else {
+    
+  }
+  query_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      query, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:embedding.RerankQuery.query)
+}
+
+// repeated string documents = 2;
+inline int RerankQuery::_internal_documents_size() const {
+  return documents_.size();
+}
+inline int RerankQuery::documents_size() const {
+  return _internal_documents_size();
+}
+inline void RerankQuery::clear_documents() {
+  documents_.Clear();
+}
+inline std::string* RerankQuery::add_documents() {
+  // @@protoc_insertion_point(field_add_mutable:embedding.RerankQuery.documents)
+  return _internal_add_documents();
+}
+inline const std::string& RerankQuery::_internal_documents(int index) const {
+  return documents_.Get(index);
+}
+inline const std::string& RerankQuery::documents(int index) const {
+  // @@protoc_insertion_point(field_get:embedding.RerankQuery.documents)
+  return _internal_documents(index);
+}
+inline std::string* RerankQuery::mutable_documents(int index) {
+  // @@protoc_insertion_point(field_mutable:embedding.RerankQuery.documents)
+  return documents_.Mutable(index);
+}
+inline void RerankQuery::set_documents(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:embedding.RerankQuery.documents)
+  documents_.Mutable(index)->assign(value);
+}
+inline void RerankQuery::set_documents(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:embedding.RerankQuery.documents)
+  documents_.Mutable(index)->assign(std::move(value));
+}
+inline void RerankQuery::set_documents(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  documents_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:embedding.RerankQuery.documents)
+}
+inline void RerankQuery::set_documents(int index, const char* value, size_t size) {
+  documents_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:embedding.RerankQuery.documents)
+}
+inline std::string* RerankQuery::_internal_add_documents() {
+  return documents_.Add();
+}
+inline void RerankQuery::add_documents(const std::string& value) {
+  documents_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:embedding.RerankQuery.documents)
+}
+inline void RerankQuery::add_documents(std::string&& value) {
+  documents_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:embedding.RerankQuery.documents)
+}
+inline void RerankQuery::add_documents(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  documents_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:embedding.RerankQuery.documents)
+}
+inline void RerankQuery::add_documents(const char* value, size_t size) {
+  documents_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:embedding.RerankQuery.documents)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+RerankQuery::documents() const {
+  // @@protoc_insertion_point(field_list:embedding.RerankQuery.documents)
+  return documents_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+RerankQuery::mutable_documents() {
+  // @@protoc_insertion_point(field_mutable_list:embedding.RerankQuery.documents)
+  return &documents_;
+}
+
+// int32 top_k = 3;
+inline void RerankQuery::clear_top_k() {
+  top_k_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 RerankQuery::_internal_top_k() const {
+  return top_k_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 RerankQuery::top_k() const {
+  // @@protoc_insertion_point(field_get:embedding.RerankQuery.top_k)
+  return _internal_top_k();
+}
+inline void RerankQuery::_internal_set_top_k(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  top_k_ = value;
+}
+inline void RerankQuery::set_top_k(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_top_k(value);
+  // @@protoc_insertion_point(field_set:embedding.RerankQuery.top_k)
+}
+
+// -------------------------------------------------------------------
+
+// RerankRequest
+
+// repeated .embedding.RerankQuery queries = 1;
+inline int RerankRequest::_internal_queries_size() const {
+  return queries_.size();
+}
+inline int RerankRequest::queries_size() const {
+  return _internal_queries_size();
+}
+inline void RerankRequest::clear_queries() {
+  queries_.Clear();
+}
+inline ::embedding::RerankQuery* RerankRequest::mutable_queries(int index) {
+  // @@protoc_insertion_point(field_mutable:embedding.RerankRequest.queries)
+  return queries_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankQuery >*
+RerankRequest::mutable_queries() {
+  // @@protoc_insertion_point(field_mutable_list:embedding.RerankRequest.queries)
+  return &queries_;
+}
+inline const ::embedding::RerankQuery& RerankRequest::_internal_queries(int index) const {
+  return queries_.Get(index);
+}
+inline const ::embedding::RerankQuery& RerankRequest::queries(int index) const {
+  // @@protoc_insertion_point(field_get:embedding.RerankRequest.queries)
+  return _internal_queries(index);
+}
+inline ::embedding::RerankQuery* RerankRequest::_internal_add_queries() {
+  return queries_.Add();
+}
+inline ::embedding::RerankQuery* RerankRequest::add_queries() {
+  // @@protoc_insertion_point(field_add:embedding.RerankRequest.queries)
+  return _internal_add_queries();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankQuery >&
+RerankRequest::queries() const {
+  // @@protoc_insertion_point(field_list:embedding.RerankRequest.queries)
+  return queries_;
+}
+
+// -------------------------------------------------------------------
+
+// RerankItem
+
+// int32 index = 1;
+inline void RerankItem::clear_index() {
+  index_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 RerankItem::_internal_index() const {
+  return index_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 RerankItem::index() const {
+  // @@protoc_insertion_point(field_get:embedding.RerankItem.index)
+  return _internal_index();
+}
+inline void RerankItem::_internal_set_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  index_ = value;
+}
+inline void RerankItem::set_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_index(value);
+  // @@protoc_insertion_point(field_set:embedding.RerankItem.index)
+}
+
+// string document = 2;
+inline void RerankItem::clear_document() {
+  document_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& RerankItem::document() const {
+  // @@protoc_insertion_point(field_get:embedding.RerankItem.document)
+  return _internal_document();
+}
+inline void RerankItem::set_document(const std::string& value) {
+  _internal_set_document(value);
+  // @@protoc_insertion_point(field_set:embedding.RerankItem.document)
+}
+inline std::string* RerankItem::mutable_document() {
+  // @@protoc_insertion_point(field_mutable:embedding.RerankItem.document)
+  return _internal_mutable_document();
+}
+inline const std::string& RerankItem::_internal_document() const {
+  return document_.Get();
+}
+inline void RerankItem::_internal_set_document(const std::string& value) {
+  
+  document_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void RerankItem::set_document(std::string&& value) {
+  
+  document_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:embedding.RerankItem.document)
+}
+inline void RerankItem::set_document(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  document_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:embedding.RerankItem.document)
+}
+inline void RerankItem::set_document(const char* value,
+    size_t size) {
+  
+  document_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:embedding.RerankItem.document)
+}
+inline std::string* RerankItem::_internal_mutable_document() {
+  
+  return document_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* RerankItem::release_document() {
+  // @@protoc_insertion_point(field_release:embedding.RerankItem.document)
+  return document_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RerankItem::set_allocated_document(std::string* document) {
+  if (document != nullptr) {
+    
+  } else {
+    
+  }
+  document_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), document,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:embedding.RerankItem.document)
+}
+inline std::string* RerankItem::unsafe_arena_release_document() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:embedding.RerankItem.document)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return document_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void RerankItem::unsafe_arena_set_allocated_document(
+    std::string* document) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (document != nullptr) {
+    
+  } else {
+    
+  }
+  document_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      document, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:embedding.RerankItem.document)
+}
+
+// float score = 3;
+inline void RerankItem::clear_score() {
+  score_ = 0;
+}
+inline float RerankItem::_internal_score() const {
+  return score_;
+}
+inline float RerankItem::score() const {
+  // @@protoc_insertion_point(field_get:embedding.RerankItem.score)
+  return _internal_score();
+}
+inline void RerankItem::_internal_set_score(float value) {
+  
+  score_ = value;
+}
+inline void RerankItem::set_score(float value) {
+  _internal_set_score(value);
+  // @@protoc_insertion_point(field_set:embedding.RerankItem.score)
+}
+
+// -------------------------------------------------------------------
+
+// RerankResult
+
+// repeated .embedding.RerankItem items = 1;
+inline int RerankResult::_internal_items_size() const {
+  return items_.size();
+}
+inline int RerankResult::items_size() const {
+  return _internal_items_size();
+}
+inline void RerankResult::clear_items() {
+  items_.Clear();
+}
+inline ::embedding::RerankItem* RerankResult::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:embedding.RerankResult.items)
+  return items_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankItem >*
+RerankResult::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:embedding.RerankResult.items)
+  return &items_;
+}
+inline const ::embedding::RerankItem& RerankResult::_internal_items(int index) const {
+  return items_.Get(index);
+}
+inline const ::embedding::RerankItem& RerankResult::items(int index) const {
+  // @@protoc_insertion_point(field_get:embedding.RerankResult.items)
+  return _internal_items(index);
+}
+inline ::embedding::RerankItem* RerankResult::_internal_add_items() {
+  return items_.Add();
+}
+inline ::embedding::RerankItem* RerankResult::add_items() {
+  // @@protoc_insertion_point(field_add:embedding.RerankResult.items)
+  return _internal_add_items();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankItem >&
+RerankResult::items() const {
+  // @@protoc_insertion_point(field_list:embedding.RerankResult.items)
+  return items_;
+}
+
+// string error = 2;
+inline void RerankResult::clear_error() {
+  error_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& RerankResult::error() const {
+  // @@protoc_insertion_point(field_get:embedding.RerankResult.error)
+  return _internal_error();
+}
+inline void RerankResult::set_error(const std::string& value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:embedding.RerankResult.error)
+}
+inline std::string* RerankResult::mutable_error() {
+  // @@protoc_insertion_point(field_mutable:embedding.RerankResult.error)
+  return _internal_mutable_error();
+}
+inline const std::string& RerankResult::_internal_error() const {
+  return error_.Get();
+}
+inline void RerankResult::_internal_set_error(const std::string& value) {
+  
+  error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void RerankResult::set_error(std::string&& value) {
+  
+  error_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:embedding.RerankResult.error)
+}
+inline void RerankResult::set_error(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:embedding.RerankResult.error)
+}
+inline void RerankResult::set_error(const char* value,
+    size_t size) {
+  
+  error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:embedding.RerankResult.error)
+}
+inline std::string* RerankResult::_internal_mutable_error() {
+  
+  return error_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* RerankResult::release_error() {
+  // @@protoc_insertion_point(field_release:embedding.RerankResult.error)
+  return error_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RerankResult::set_allocated_error(std::string* error) {
+  if (error != nullptr) {
+    
+  } else {
+    
+  }
+  error_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), error,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:embedding.RerankResult.error)
+}
+inline std::string* RerankResult::unsafe_arena_release_error() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:embedding.RerankResult.error)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return error_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void RerankResult::unsafe_arena_set_allocated_error(
+    std::string* error) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (error != nullptr) {
+    
+  } else {
+    
+  }
+  error_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      error, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:embedding.RerankResult.error)
+}
+
+// -------------------------------------------------------------------
+
+// RerankResponse
+
+// repeated .embedding.RerankResult results = 1;
+inline int RerankResponse::_internal_results_size() const {
+  return results_.size();
+}
+inline int RerankResponse::results_size() const {
+  return _internal_results_size();
+}
+inline void RerankResponse::clear_results() {
+  results_.Clear();
+}
+inline ::embedding::RerankResult* RerankResponse::mutable_results(int index) {
+  // @@protoc_insertion_point(field_mutable:embedding.RerankResponse.results)
+  return results_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankResult >*
+RerankResponse::mutable_results() {
+  // @@protoc_insertion_point(field_mutable_list:embedding.RerankResponse.results)
+  return &results_;
+}
+inline const ::embedding::RerankResult& RerankResponse::_internal_results(int index) const {
+  return results_.Get(index);
+}
+inline const ::embedding::RerankResult& RerankResponse::results(int index) const {
+  // @@protoc_insertion_point(field_get:embedding.RerankResponse.results)
+  return _internal_results(index);
+}
+inline ::embedding::RerankResult* RerankResponse::_internal_add_results() {
+  return results_.Add();
+}
+inline ::embedding::RerankResult* RerankResponse::add_results() {
+  // @@protoc_insertion_point(field_add:embedding.RerankResponse.results)
+  return _internal_add_results();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::embedding::RerankResult >&
+RerankResponse::results() const {
+  // @@protoc_insertion_point(field_list:embedding.RerankResponse.results)
+  return results_;
+}
+
+// string error = 2;
+inline void RerankResponse::clear_error() {
+  error_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& RerankResponse::error() const {
+  // @@protoc_insertion_point(field_get:embedding.RerankResponse.error)
+  return _internal_error();
+}
+inline void RerankResponse::set_error(const std::string& value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:embedding.RerankResponse.error)
+}
+inline std::string* RerankResponse::mutable_error() {
+  // @@protoc_insertion_point(field_mutable:embedding.RerankResponse.error)
+  return _internal_mutable_error();
+}
+inline const std::string& RerankResponse::_internal_error() const {
+  return error_.Get();
+}
+inline void RerankResponse::_internal_set_error(const std::string& value) {
+  
+  error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void RerankResponse::set_error(std::string&& value) {
+  
+  error_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:embedding.RerankResponse.error)
+}
+inline void RerankResponse::set_error(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:embedding.RerankResponse.error)
+}
+inline void RerankResponse::set_error(const char* value,
+    size_t size) {
+  
+  error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:embedding.RerankResponse.error)
+}
+inline std::string* RerankResponse::_internal_mutable_error() {
+  
+  return error_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* RerankResponse::release_error() {
+  // @@protoc_insertion_point(field_release:embedding.RerankResponse.error)
+  return error_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RerankResponse::set_allocated_error(std::string* error) {
+  if (error != nullptr) {
+    
+  } else {
+    
+  }
+  error_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), error,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:embedding.RerankResponse.error)
+}
+inline std::string* RerankResponse::unsafe_arena_release_error() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:embedding.RerankResponse.error)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return error_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void RerankResponse::unsafe_arena_set_allocated_error(
+    std::string* error) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (error != nullptr) {
+    
+  } else {
+    
+  }
+  error_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      error, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:embedding.RerankResponse.error)
+}
+
+// -------------------------------------------------------------------
+
 // InfoResponse
 
 // string provider = 1;
@@ -1857,6 +3329,16 @@ inline void InfoResponse::set_dimensions(::PROTOBUF_NAMESPACE_ID::int32 value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

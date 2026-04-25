@@ -9,6 +9,7 @@ import "google/protobuf/empty.proto";
 service EmbeddingService {
   rpc GetEmbedding(EmbeddingRequest) returns (EmbeddingResponse);
   rpc GetEmbeddings(EmbeddingBatchRequest) returns (EmbeddingBatchResponse);
+  rpc Rerank(RerankRequest) returns (RerankResponse);
   rpc Info(google.protobuf.Empty) returns (InfoResponse);
 }
 
@@ -32,6 +33,32 @@ message EmbeddingBatchItem {
 
 message EmbeddingBatchResponse {
   repeated EmbeddingBatchItem items = 1;
+  string error = 2;
+}
+
+message RerankQuery {
+  string query = 1;
+  repeated string documents = 2;
+  int32 top_k = 3;
+}
+
+message RerankRequest {
+  repeated RerankQuery queries = 1;
+}
+
+message RerankItem {
+  int32 index = 1;
+  string document = 2;
+  float score = 3;
+}
+
+message RerankResult {
+  repeated RerankItem items = 1;
+  string error = 2;
+}
+
+message RerankResponse {
+  repeated RerankResult results = 1;
   string error = 2;
 }
 

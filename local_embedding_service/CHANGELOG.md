@@ -2,6 +2,15 @@
 
 All notable changes to the Local Embedding Service project will be documented in this file.
 
+## [v4.10.0] - 2026-04-25
+
+### Added - Issue #17 Rerank 接口与批量排序
+- ✅ 新增 `Rerank(RerankRequest) -> RerankResponse` gRPC 接口
+- ✅ `RerankRequest` 支持批量 query 与 `top_k` 截断
+- ✅ 基础排序逻辑（token overlap + 稳定排序）
+- ✅ `test_all_features.sh` 增加 Rerank 端到端验证
+- ✅ 更新 README / USE_GUIDE / 使用方法文档
+
 ## [v4.5.0] - 2026-04-05
 
 ### Added - ONNX Runtime 集成与 Embedding 模型接入

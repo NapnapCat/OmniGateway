@@ -143,7 +143,24 @@ bash check_embedding_service.sh
 - ✅ 提供 fallback 方案（ONNX 初始化失败自动降级到 Mock）
 
 
+### Issue #17 验收说明(2026-04-25)
+- ✅ 新增 `Rerank(RerankRequest) -> RerankResponse` 接口
+- ✅ `RerankRequest` 支持批量 query
+- ✅ 基础排序逻辑（基于 token overlap + 稳定排序）
+
+验收标准状态：
+- ✅ 支持批量 rerank
+- ✅ 接口稳定可调用
+
+### Rerank 接口示例
+```bash
+grpcurl -plaintext -import-path proto -proto proto/embedding.proto \
+  -d '{"queries":[{"query":"hello world","documents":["hello world doc","irrelevant text","world hello again"],"top_k":2}]}' \
+  localhost:50051 embedding.EmbeddingService/Rerank
+```
+
+
 ### 文档
-- [USE_GUIDE.md](USE_GUIDE.md) - 完整使用指南（已更新 v4.5.0）
+- [USE_GUIDE.md](USE_GUIDE.md) - 完整使用指南（已更新 v4.10.0）
 - [ONNX_SETUP.md](ONNX_SETUP.md) - ONNX Runtime 安装配置
 - [CHANGELOG.md](CHANGELOG.md) - 详细变更日志

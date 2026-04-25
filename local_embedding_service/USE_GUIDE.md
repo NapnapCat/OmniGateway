@@ -1,7 +1,7 @@
 # 本模块使用方法以及启动流程
 
-> **更新日期**: 2026-04-05  
-> **版本**: v4.5.0 - 新增 ONNX Runtime 集成支持
+> **更新日期**: 2026-04-25  
+> **版本**: v4.10.0 - 新增 Rerank 接口支持
 
 ## 目录
 1. [先决条件](#0-先决条件)
@@ -260,6 +260,13 @@ grpcurl -plaintext -proto proto/embedding.proto \
 grpcurl -plaintext -proto proto/embedding.proto \
   -d '{"text":"This is a longer text to test the embedding service with more content."}' \
   localhost:50051 embedding.EmbeddingService/GetEmbedding
+```
+
+### 5.4 Rerank 排序接口
+```bash
+grpcurl -plaintext -import-path proto -proto proto/embedding.proto \
+  -d '{"queries":[{"query":"hello world","documents":["hello world doc","irrelevant text","world hello again"],"top_k":2}]}' \
+  localhost:50051 embedding.EmbeddingService/Rerank
 ```
 
 ## 6. 常见问题与排查

@@ -18,7 +18,7 @@ generated/
 
 # Executables
 embedding_server
-local_embedding_service
+
 
 # CMake generated files
 CMakeCache.txt
