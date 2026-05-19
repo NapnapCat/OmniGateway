@@ -174,3 +174,18 @@ grpcurl -plaintext -import-path proto -proto proto/embedding.proto \
 - [USE_GUIDE.md](USE_GUIDE.md) - 完整使用指南（已更新 v4.10.0）
 - [ONNX_SETUP.md](ONNX_SETUP.md) - ONNX Runtime 安装配置
 - [CHANGELOG.md](CHANGELOG.md) - 详细变更日志
+
+
+### issue 19 验收说明(2026-05-19) ✅ 已完成
+优化推理性能，包括内存管理与矩阵计算。
+
+- ✅ 内存池优化：缓存 Ort::MemoryInfo，预分配推理缓冲区，消除 per-call 分配
+- ✅ vector/move 优化：使用 std::move、assign()、emplace_back 消除不必要拷贝
+- ✅ 真批量推理：EncodeBatch 从逐条推理改为单次 Session::Run 批量推理
+- ✅ 截断算法：BertTokenizer::EncodePair 截断从 O(n) 循环改为 O(1) resize
+
+验收标准状态：
+- ✅ 内存占用下降（消除 per-call MemoryInfo 和重复 vector 分配）
+- ✅ 吞吐提升（EncodeBatch N 次推理→1 次，Rerank 缓冲复用）
+
+详见 [CHANGELOG.md](CHANGELOG.md) v4.12.0。

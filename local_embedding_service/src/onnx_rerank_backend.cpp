@@ -44,6 +44,7 @@ OnnxRerankBackend::OnnxRerankBackend()
   ort_env_ = nullptr;
   ort_session_ = nullptr;
   session_options_ = nullptr;
+  memory_info_ = nullptr;
 #endif
 }
 
@@ -86,6 +87,10 @@ bool OnnxRerankBackend::Init(std::string* error_msg) {
     ort_session_ = std::make_unique<Ort::Session>(
         *ort_env_, model_path_.c_str(), *session_options_);
 
+    // Cache MemoryInfo to avoid per-call allocation
+    memory_info_ = std::make_unique<Ort::MemoryInfo>(
+        Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault));
+
     Ort::AllocatorWithDefaultOptions allocator;
     size_t num_input_nodes = ort_session_->GetInputCount();
     size_t num_output_nodes = ort_session_->GetOutputCount();
@@ -108,6 +113,13 @@ bool OnnxRerankBackend::Init(std::string* error_msg) {
 
     std::cout << "[Info] Rerank ONNX model loaded. Inputs: " << num_input_nodes
               << ", Outputs: " << num_output_nodes << std::endl;
+
+    // Pre-allocate buffers
+    const size_t max_buf = static_cast<size_t>(max_length_);
+    buf_input_ids_.reserve(max_buf);
+    buf_attention_mask_.reserve(max_buf);
+    buf_token_type_ids_.reserve(max_buf);
+    buf_shape_.resize(2);
 
     // Initialize tokenizer
     auto bert_tokenizer = std::make_unique<BertTokenizer>(vocab_path, max_length_);
@@ -151,28 +163,28 @@ bool OnnxRerankBackend::Rerank(const std::string& query,
   results->reserve(documents.size());
 
   try {
-    Ort::MemoryInfo memory_info =
-        Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
-
     for (size_t i = 0; i < documents.size(); ++i) {
       auto encoded = tokenizer_->EncodePair(query, documents[i]);
-      int64_t seq_len = static_cast<int64_t>(encoded.input_ids.size());
 
-      std::vector<int64_t> shape = {1, seq_len};
+      // Move encoded data into pre-allocated buffers
+      buf_input_ids_ = std::move(encoded.input_ids);
+      buf_attention_mask_ = std::move(encoded.attention_mask);
+      buf_token_type_ids_ = std::move(encoded.token_type_ids);
+
+      buf_shape_[0] = 1;
+      buf_shape_[1] = static_cast<int64_t>(buf_input_ids_.size());
 
       std::vector<Ort::Value> input_tensors;
-      // input_ids
+      input_tensors.reserve(3);
       input_tensors.push_back(Ort::Value::CreateTensor<int64_t>(
-          memory_info, encoded.input_ids.data(), encoded.input_ids.size(),
-          shape.data(), shape.size()));
-      // attention_mask
+          *memory_info_, buf_input_ids_.data(), buf_input_ids_.size(),
+          buf_shape_.data(), buf_shape_.size()));
       input_tensors.push_back(Ort::Value::CreateTensor<int64_t>(
-          memory_info, encoded.attention_mask.data(),
-          encoded.attention_mask.size(), shape.data(), shape.size()));
-      // token_type_ids
+          *memory_info_, buf_attention_mask_.data(),
+          buf_attention_mask_.size(), buf_shape_.data(), buf_shape_.size()));
       input_tensors.push_back(Ort::Value::CreateTensor<int64_t>(
-          memory_info, encoded.token_type_ids.data(),
-          encoded.token_type_ids.size(), shape.data(), shape.size()));
+          *memory_info_, buf_token_type_ids_.data(),
+          buf_token_type_ids_.size(), buf_shape_.data(), buf_shape_.size()));
 
       auto output_tensors =
           ort_session_->Run(Ort::RunOptions{nullptr}, input_names_.data(),
@@ -221,14 +233,12 @@ float OnnxRerankBackend::ExtractScore(Ort::Value& output_tensor) {
   float* data = output_tensor.GetTensorMutableData<float>();
   auto shape = output_tensor.GetTensorTypeAndShapeInfo().GetShape();
 
-  // Shape is typically [1, 1] (single score) or [1, 2] (logits)
   size_t elem_count = 1;
   for (auto dim : shape) {
     if (dim > 0) elem_count *= static_cast<size_t>(dim);
   }
 
   if (elem_count >= 2) {
-    // 2-element logits: apply softmax, return probability of class 1 (relevant)
     float logit0 = data[0];
     float logit1 = data[1];
     float max_logit = std::max(logit0, logit1);
@@ -237,7 +247,6 @@ float OnnxRerankBackend::ExtractScore(Ort::Value& output_tensor) {
     return exp1 / (exp0 + exp1);
   }
 
-  // Single score
   return data[0];
 }
 #endif
