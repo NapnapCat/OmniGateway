@@ -44,7 +44,7 @@ class ToolRegistry:
         try:
             tools = await client.list_tools()
         except Exception as exc:
-            print(f"[MCP] tools/list failed, fallback=local_tools error={str(exc)[:200]}")
+            print(f"[MCP] tools/list 失败，降级为本地工具 error={str(exc)[:200]}")
             self._mcp_tools = {}
             self._openai_tools_cache = list(AVAILABLE_TOOLS)
             self._expires_at = now + settings.mcp_tool_cache_ttl_seconds

@@ -34,8 +34,10 @@ class FakeMCPClient:
         self.list_error = list_error
         self.call_result = call_result or {"content": [{"type": "text", "text": "ok"}]}
         self.call_error = call_error
+        self.list_calls = 0
 
     async def list_tools(self) -> list[MCPTool]:
+        self.list_calls += 1
         if self.list_error:
             raise self.list_error
         return self.tools
@@ -68,8 +70,20 @@ async def test_mcp_tools_list_converts_to_openai_schema(monkeypatch):
 
     tools = await registry.list_openai_tools()
 
-    assert tools[0]["function"]["name"] == "search_docs"
-    assert tools[0]["function"]["parameters"]["required"] == ["query"]
+    assert tools == [
+        {
+            "type": "function",
+            "function": {
+                "name": "search_docs",
+                "description": "Search project docs",
+                "parameters": {
+                    "type": "object",
+                    "properties": {"query": {"type": "string"}},
+                    "required": ["query"],
+                },
+            },
+        }
+    ]
 
 
 @pytest.mark.asyncio

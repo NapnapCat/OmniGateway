@@ -90,6 +90,7 @@ async def test_tool_failure_does_not_block_other_results():
 
     assert messages[0]["content"] == "ok_tool:ok"
     assert "工具执行失败" in messages[1]["content"]
+    assert "bad_tool failed" in messages[1]["content"]
     assert messages[2]["content"] == "after_tool:after"
 
 
@@ -104,18 +105,25 @@ async def test_tool_message_order_matches_input_order():
     messages = await execute_tool_calls(tool_calls, registry=registry, max_concurrency=3)
 
     assert [message["tool_call_id"] for message in messages] == ["call_1", "call_2", "call_3"]
+    assert [message["name"] for message in messages] == ["first", "second", "third"]
 
 
 async def test_unknown_tool_returns_controlled_error():
     registry = FakeRegistry(unknown={"missing_tool"})
-    messages = await execute_tool_calls([make_tool_call("call_missing", "missing_tool")], registry=registry)
+    messages = await execute_tool_calls(
+        [make_tool_call("call_missing", "missing_tool")],
+        registry=registry,
+    )
 
     assert messages[0]["content"] == "未知工具: missing_tool"
 
 
 async def test_invalid_tool_arguments_returns_controlled_error_without_calling_registry():
     registry = FakeRegistry()
-    messages = await execute_tool_calls([make_tool_call("call_invalid", "some_tool", "{not-json")], registry=registry)
+    messages = await execute_tool_calls(
+        [make_tool_call("call_invalid", "some_tool", "{not-json")],
+        registry=registry,
+    )
 
     assert "tool_arguments_invalid_json" in messages[0]["content"]
     assert registry.max_active == 0
@@ -130,6 +138,7 @@ async def test_tool_call_timeout_returns_controlled_error():
     )
 
     assert "tool_call_timeout" in messages[0]["content"]
+    assert "Tool call timed out" in messages[0]["content"]
 
 
 async def test_max_concurrency_limit_is_respected():
