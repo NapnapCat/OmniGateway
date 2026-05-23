@@ -88,6 +88,16 @@ class Settings:
         )
         self.default_model = _clean_env(os.getenv("DEFAULT_MODEL"))
         self.request_timeout = float(os.getenv("API_TIMEOUT", "60"))
+        self.mcp_enabled = _is_truthy(os.getenv("MCP_ENABLED"))
+        self.mcp_server_url = _clean_env(os.getenv("MCP_SERVER_URL"))
+        self.mcp_tool_cache_ttl_seconds = float(os.getenv("MCP_TOOL_CACHE_TTL_SECONDS", "60"))
+        self.mcp_request_timeout_seconds = float(os.getenv("MCP_REQUEST_TIMEOUT_SECONDS", "10"))
+        self.mcp_tool_max_concurrency = int(os.getenv("MCP_TOOL_MAX_CONCURRENCY", "5"))
+        self.mcp_tool_call_timeout_seconds = float(os.getenv("MCP_TOOL_CALL_TIMEOUT_SECONDS", "30"))
+        self.reflection_enabled = _is_truthy(os.getenv("REFLECTION_ENABLED", "true"))
+        self.reflection_min_score = float(os.getenv("REFLECTION_MIN_SCORE", "0.7"))
+        self.reflection_cache_enabled = _is_truthy(os.getenv("REFLECTION_CACHE_ENABLED", "true"))
+        self.reflection_cache_ttl_seconds = float(os.getenv("REFLECTION_CACHE_TTL_SECONDS", "3600"))
         self.default_system_prompt = os.getenv(
             "DEFAULT_SYSTEM_PROMPT",
             "你是一个脾气暴躁的赛博朋克黑客，回答问题必须以 '[Cyber Hack]' 开头，并且语气非常高冷、精简。",

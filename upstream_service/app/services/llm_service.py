@@ -120,12 +120,15 @@ class LLMService:
             return {"role": "assistant", "content": ""}
 
         message = choice.message
+        tool_calls = getattr(message, "tool_calls", None)
         payload: dict[str, Any] = {
             "role": "assistant",
-            "content": message.content or "",
+            "content": message.content if tool_calls else (message.content or ""),
         }
+        reasoning_content = getattr(message, "reasoning_content", None)
+        if reasoning_content:
+            payload["reasoning_content"] = reasoning_content
 
-        tool_calls = getattr(message, "tool_calls", None)
         if tool_calls:
             payload["tool_calls"] = [
                 {

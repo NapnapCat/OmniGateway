@@ -1,8 +1,10 @@
 import traceback
 
 from app.agent.state import AgentState
-from app.agent.tools import AVAILABLE_TOOLS, execute_tool, parse_tool_arguments
+from app.agent.tool_executor import execute_tool_calls
 from app.core.config import settings
+from app.mcp import tool_registry
+from app.reflection import reflection_service
 from app.services.llm_service import llm_service
 from app.services.rag_service import (
     RAG_TOKEN_LIMIT,
@@ -31,10 +33,7 @@ def get_token_encoding():
 
 
 def has_system_identity(message: dict) -> bool:
-    if message.get("role") == "system":
-        return True
-    content = str(message.get("content") or "")
-    return CYBER_HACK_PREFIX in content
+    return message.get("role") == "system"
 
 
 def is_tool_call_message(message: dict) -> bool:
@@ -51,31 +50,36 @@ def prune_message_history(messages: list[dict], max_messages: int = MAX_MESSAGE_
 
     preserved_first = messages[0] if messages and has_system_identity(messages[0]) else None
     tail_limit = max_messages - 1 if preserved_first else max_messages
-    tail = messages[-tail_limit:]
-    paired_tool_call = None
+    tail_start = max(0, len(messages) - tail_limit)
 
-    if tail and is_tool_result_message(tail[0]):
-        tool_call_id = tail[0].get("tool_call_id")
-        previous_message = messages[: -tail_limit][-1] if len(messages) > tail_limit else None
-        if previous_message and is_tool_call_message(previous_message):
+    # Keep a continuous recent window. If the window starts with a tool result,
+    # move the boundary left to include the assistant message that requested it.
+    if is_tool_result_message(messages[tail_start]):
+        tool_call_id = messages[tail_start].get("tool_call_id")
+        previous_index = tail_start - 1
+        if previous_index >= 0 and is_tool_call_message(messages[previous_index]):
             previous_tool_ids = {
                 tool_call.get("id")
-                for tool_call in previous_message.get("tool_calls", []) or []
+                for tool_call in messages[previous_index].get("tool_calls", []) or []
             }
             if tool_call_id in previous_tool_ids:
-                paired_tool_call = previous_message
-                tail = [paired_tool_call, *tail]
-                while len(tail) > tail_limit and len(tail) > 1:
-                    tail.pop(1)
+                tail_start = previous_index
+
+    tail = messages[tail_start:]
+
+    if preserved_first and tail and tail[0] is preserved_first:
+        tail = tail[1:]
+
+    # Prefer a coherent tail over sparse history. If preserving a tool pair makes
+    # the window exceed the nominal cap, allow the small overflow instead of
+    # splitting assistant.tool_calls from its tool result.
+    allowed_limit = max_messages + 1 if tail and is_tool_call_message(tail[0]) else max_messages
+    if preserved_first:
+        allowed_limit -= 1
+    if len(tail) > allowed_limit:
+        tail = tail[-allowed_limit:]
 
     pruned_messages = [preserved_first, *tail] if preserved_first else tail
-    while len(pruned_messages) > max_messages:
-        drop_index = 1 if preserved_first else 0
-        if paired_tool_call is not None and pruned_messages[drop_index] is paired_tool_call:
-            drop_index += 1
-        if drop_index >= len(pruned_messages):
-            break
-        pruned_messages.pop(drop_index)
 
     print(f"[Memory] 消息历史过长，已裁剪至 {len(pruned_messages)} 条")
     return pruned_messages
@@ -145,7 +149,7 @@ async def llm_node(state: AgentState) -> AgentState:
             messages=messages,
             model=state.get("model"),
             temperature=state.get("temperature", 0.7),
-            tools=AVAILABLE_TOOLS,
+            tools=await tool_registry.list_openai_tools(),
         )
         if not assistant_message.get("tool_calls"):
             assistant_message["content"] = ensure_cyber_hack_style(
@@ -156,10 +160,11 @@ async def llm_node(state: AgentState) -> AgentState:
     except AssertionError:
         traceback.print_exc()
         raise
-    except Exception:
+    except Exception as exc:
+        traceback.print_exc()
         assistant_message = {
             "role": "assistant",
-            "content": f"{CYBER_HACK_PREFIX} 核心链路断开，该死的服务器又在装死。",
+            "content": f"{CYBER_HACK_PREFIX} 核心链路断开，该死的服务器又在装死。错误: {str(exc)}",
         }
         next_step = "output_node"
 
@@ -180,27 +185,10 @@ async def llm_node(state: AgentState) -> AgentState:
     }
 
 
-def action_node(state: AgentState) -> AgentState:
+async def action_node(state: AgentState) -> AgentState:
     messages = state.get("messages", [])
     last_message = messages[-1] if messages else {}
-    tool_messages = []
-
-    for tool_call in last_message.get("tool_calls", []) or []:
-        function_info = tool_call.get("function", {})
-        tool_name = function_info.get("name", "")
-        arguments = parse_tool_arguments(function_info.get("arguments"))
-        try:
-            result = execute_tool(tool_name, arguments)
-        except Exception as exc:
-            result = f"工具执行失败: {str(exc)}"
-        tool_messages.append(
-            {
-                "role": "tool",
-                "tool_call_id": tool_call.get("id"),
-                "name": tool_name,
-                "content": result,
-            }
-        )
+    tool_messages = await execute_tool_calls(last_message.get("tool_calls", []) or [])
 
     return {
         "messages": [*messages, *tool_messages],
@@ -214,7 +202,7 @@ def action_node(state: AgentState) -> AgentState:
     }
 
 
-def output_node(state: AgentState) -> AgentState:
+async def output_node(state: AgentState) -> AgentState:
     print("工作流执行完毕")
     pruned_messages = prune_message_history(state.get("messages", []))
     assistant_messages = [
@@ -223,6 +211,29 @@ def output_node(state: AgentState) -> AgentState:
         if message.get("role") == "assistant"
     ]
     final_response = assistant_messages[-1]["content"] if assistant_messages else None
+    reflection = None
+
+    # Streaming responses bypass the graph and should not wait for reflection.
+    # This branch only runs for non-streaming final graph output.
+    try:
+        input_messages = [
+            message
+            for message in pruned_messages
+            if message.get("role") in {"system", "user"}
+        ]
+        tool_results = [
+            message
+            for message in pruned_messages
+            if message.get("role") == "tool"
+        ]
+        reflection_result = await reflection_service.evaluate_and_cache(
+            input_messages=input_messages,
+            output_text=final_response,
+            tool_results=tool_results,
+        )
+        reflection = reflection_result.to_dict() if reflection_result else None
+    except Exception as exc:
+        print(f"[Reflection] evaluation_failed error={str(exc)[:200]}")
 
     return {
         "messages": pruned_messages,
@@ -233,4 +244,5 @@ def output_node(state: AgentState) -> AgentState:
         "temperature": state.get("temperature"),
         "tool_rounds": state.get("tool_rounds", 0),
         "final_response": final_response,
+        "reflection": reflection,
     }

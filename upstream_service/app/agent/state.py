@@ -10,3 +10,4 @@ class AgentState(TypedDict):
     temperature: NotRequired[float | None]
     tool_rounds: NotRequired[int]
     final_response: NotRequired[str | None]
+    reflection: NotRequired[dict[str, Any] | None]
