@@ -4,6 +4,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 
 SERVICE_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -16,7 +18,13 @@ if str(REPO_ROOT) not in sys.path:
 from app.agent.graph import graph_app
 from app.agent.nodes import MAX_MESSAGE_HISTORY
 from app.agent.tools import TOOL_REGISTRY, WEATHER_TOOL_NAME
+from app.core.config import settings
 from app.services.llm_service import llm_service
+
+
+pytestmark = pytest.mark.asyncio
+settings.mcp_enabled = False
+settings.mcp_server_url = None
 
 
 def build_long_history() -> list[dict[str, Any]]:
