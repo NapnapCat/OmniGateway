@@ -4,6 +4,7 @@ from app.agent.state import AgentState
 from app.agent.tool_executor import execute_tool_calls
 from app.core.config import settings
 from app.mcp import tool_registry
+from app.reflection import reflection_service
 from app.services.llm_service import llm_service
 from app.services.rag_service import (
     RAG_TOKEN_LIMIT,
@@ -201,7 +202,7 @@ async def action_node(state: AgentState) -> AgentState:
     }
 
 
-def output_node(state: AgentState) -> AgentState:
+async def output_node(state: AgentState) -> AgentState:
     print("工作流执行完毕")
     pruned_messages = prune_message_history(state.get("messages", []))
     assistant_messages = [
@@ -210,6 +211,29 @@ def output_node(state: AgentState) -> AgentState:
         if message.get("role") == "assistant"
     ]
     final_response = assistant_messages[-1]["content"] if assistant_messages else None
+    reflection = None
+
+    # Streaming responses bypass the graph and should not wait for reflection.
+    # This branch only runs for non-streaming final graph output.
+    try:
+        input_messages = [
+            message
+            for message in pruned_messages
+            if message.get("role") in {"system", "user"}
+        ]
+        tool_results = [
+            message
+            for message in pruned_messages
+            if message.get("role") == "tool"
+        ]
+        reflection_result = await reflection_service.evaluate_and_cache(
+            input_messages=input_messages,
+            output_text=final_response,
+            tool_results=tool_results,
+        )
+        reflection = reflection_result.to_dict() if reflection_result else None
+    except Exception as exc:
+        print(f"[Reflection] evaluation_failed error={str(exc)[:200]}")
 
     return {
         "messages": pruned_messages,
@@ -220,4 +244,5 @@ def output_node(state: AgentState) -> AgentState:
         "temperature": state.get("temperature"),
         "tool_rounds": state.get("tool_rounds", 0),
         "final_response": final_response,
+        "reflection": reflection,
     }
