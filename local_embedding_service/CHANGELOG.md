@@ -2,6 +2,36 @@
 
 All notable changes to the Local Embedding Service project will be documented in this file.
 
+## [v4.12.0] - 2026-05-19
+
+### Optimized - Issue #19 推理性能优化：内存管理与矩阵计算
+
+#### 内存池与缓冲区复用
+- ✅ `OnnxEmbeddingBackend`: 缓存 `Ort::MemoryInfo`，避免每次推理重复创建
+- ✅ `OnnxEmbeddingBackend`: 预分配 `buf_input_ids_`, `buf_attention_mask_`, `buf_input_shape_` 推理缓冲区
+- ✅ `OnnxRerankBackend`: 缓存 `Ort::MemoryInfo`，避免每次推理重复创建
+- ✅ `OnnxRerankBackend`: 预分配 `buf_input_ids_`, `buf_attention_mask_`, `buf_token_type_ids_`, `buf_shape_` 缓冲区
+- ✅ 使用 `std::move` 将 tokenizer 输出直接移入缓冲区，零拷贝传递
+
+#### 真批量推理（EncodeBatch）
+- ✅ `OnnxEmbeddingBackend::EncodeBatch` 重写为单次 ONNX Session::Run 调用
+- ✅ 将多条文本 tokenize 后 pad 到统一长度，构建 [batch_size, max_seq_len] 张量
+- ✅ 单次推理取回所有 embedding，消除逐条推理的 Session::Run 开销
+
+#### Move 语义与拷贝消除
+- ✅ `Encode()`: 使用 `assign()` 替代 `resize() + copy()`，利用 memcpy 快速路径
+- ✅ `EmbeddingServiceImpl`: gRPC 请求中 texts/documents 使用 `emplace_back` 避免额外拷贝
+- ✅ `BertTokenizer::EncodePair` 结果通过 `std::move` 传递给推理缓冲
+
+#### 截断算法优化
+- ✅ `BertTokenizer::EncodePair` 截断逻辑从 O(n) pop_back 循环改为 O(1) resize
+
+### Performance Impact
+- 内存占用下降：消除 per-call MemoryInfo 分配和重复 vector 分配
+- 吞吐提升：EncodeBatch 从 N 次 Session::Run 减少到 1 次；Rerank 消除重复缓冲区分配
+
+---
+
 ## [v4.11.0] - 2026-05-12
 
 ### Added - Issue #18 Rerank ONNX 推理与多模型切换

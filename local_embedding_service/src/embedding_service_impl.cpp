@@ -130,8 +130,8 @@ grpc::Status EmbeddingServiceImpl::GetEmbeddings(
 
   std::vector<std::string> texts;
   texts.reserve(static_cast<size_t>(text_count));
-  for (const auto& text : request->texts()) {
-    texts.push_back(text);
+  for (int i = 0; i < text_count; ++i) {
+    texts.emplace_back(request->texts(i));
   }
 
   std::vector<std::vector<float>> embeddings;
@@ -184,8 +184,8 @@ grpc::Status EmbeddingServiceImpl::Rerank(
 
     std::vector<std::string> docs;
     docs.reserve(static_cast<size_t>(query.documents_size()));
-    for (const auto& doc : query.documents()) {
-      docs.push_back(doc);
+    for (int i = 0; i < query.documents_size(); ++i) {
+      docs.emplace_back(query.documents(i));
     }
 
     std::vector<RerankItem> backend_results;

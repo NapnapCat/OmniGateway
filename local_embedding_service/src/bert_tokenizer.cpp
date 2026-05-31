@@ -216,13 +216,19 @@ TokenPairEncoding BertTokenizer::EncodePair(const std::string& text_a,
   int max_a_plus_b = max_length_ - 3;
   if (max_a_plus_b < 0) max_a_plus_b = 0;
 
-  // Truncate longer sequence first when total exceeds limit
-  while (static_cast<int>(tokens_a.size() + tokens_b.size()) > max_a_plus_b) {
-    if (tokens_a.size() > tokens_b.size()) {
-      tokens_a.pop_back();
-    } else {
-      tokens_b.pop_back();
+  // Truncate to fit within max_length (proportional truncation)
+  size_t total = tokens_a.size() + tokens_b.size();
+  if (static_cast<int>(total) > max_a_plus_b) {
+    size_t budget = static_cast<size_t>(max_a_plus_b);
+    size_t max_a = (budget + 1) / 2;
+    size_t max_b = budget / 2;
+    if (tokens_a.size() <= max_a) {
+      max_b = budget - tokens_a.size();
+    } else if (tokens_b.size() <= max_b) {
+      max_a = budget - tokens_b.size();
     }
+    if (tokens_a.size() > max_a) tokens_a.resize(max_a);
+    if (tokens_b.size() > max_b) tokens_b.resize(max_b);
   }
 
   int total_len = 1 + static_cast<int>(tokens_a.size()) + 1 +

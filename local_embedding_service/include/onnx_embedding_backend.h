@@ -44,10 +44,16 @@ class OnnxEmbeddingBackend : public IEmbeddingBackend {
   std::unique_ptr<Ort::Env> ort_env_;
   std::unique_ptr<Ort::Session> ort_session_;
   std::unique_ptr<Ort::SessionOptions> session_options_;
+  std::unique_ptr<Ort::MemoryInfo> memory_info_;
   std::vector<std::string> input_names_str_;
   std::vector<std::string> output_names_str_;
   std::vector<const char*> input_names_;
   std::vector<const char*> output_names_;
+
+  // Pre-allocated inference buffers to avoid per-call allocation
+  std::vector<int64_t> buf_input_ids_;
+  std::vector<int64_t> buf_attention_mask_;
+  std::vector<int64_t> buf_input_shape_;
 #endif
 
   static std::string ReadStringEnv(const char* name, const char* default_value);
